@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id Int @id @unique @default(autoincrement())
+  name String
+  email String @unique
+  password String
+  role Role @default(ADMIN)
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
+
+model Provider {
+  id Int @id @unique @default(autoincrement())
+  name String
+  email String @unique
+  phone String
+  address String
+  products providerProduct[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
+
+model providerProduct {
+  id Int @id @unique @default(autoincrement())
+  providerId Int 
+  productId Int
+
+  provider Provider @relation(fields: [providerId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
+
+model Product {
+  id Int @id @unique @default(autoincrement())
+  categoryId Int
+  name String
+  description String
+  category Category @relation(fields: [categoryId], references: [id])
+  coste Float
+  price Float
+  stock Int
+  expiredAt DateTime
+  provider providerProduct[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
+
+model Category {
+  id Int @id @unique @default(autoincrement())
+  name String
+  products Product[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
+
+model Dishes {
+  id Int @id @unique @default(autoincrement())
+  name String
+  description String
+  price Float
+  stock Int
+  content Json
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
