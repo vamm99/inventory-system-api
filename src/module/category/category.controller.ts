@@ -18,6 +18,11 @@ export class CategoryController {
     return this.categoryService.findAll(pagination);
   }
 
+  @Get('share')
+  async findByName(@Query('name') name: string){
+    return this.categoryService.findByName(name);
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: number){
     return this.categoryService.findOne(id);
