@@ -94,6 +94,7 @@ model Dishes {
   id          Int    @id @unique @default(autoincrement())
   name        String
   description String
+  coste       Float
   price       Float
   stock       Int
   content     Json

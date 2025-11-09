@@ -168,6 +168,7 @@ exports.Prisma.DishesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  coste: 'coste',
   price: 'price',
   stock: 'stock',
   content: 'content',

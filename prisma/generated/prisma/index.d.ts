@@ -5831,12 +5831,14 @@ export namespace Prisma {
 
   export type DishesAvgAggregateOutputType = {
     id: number | null
+    coste: number | null
     price: number | null
     stock: number | null
   }
 
   export type DishesSumAggregateOutputType = {
     id: number | null
+    coste: number | null
     price: number | null
     stock: number | null
   }
@@ -5845,6 +5847,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     description: string | null
+    coste: number | null
     price: number | null
     stock: number | null
     createdAt: Date | null
@@ -5855,6 +5858,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     description: string | null
+    coste: number | null
     price: number | null
     stock: number | null
     createdAt: Date | null
@@ -5865,6 +5869,7 @@ export namespace Prisma {
     id: number
     name: number
     description: number
+    coste: number
     price: number
     stock: number
     content: number
@@ -5876,12 +5881,14 @@ export namespace Prisma {
 
   export type DishesAvgAggregateInputType = {
     id?: true
+    coste?: true
     price?: true
     stock?: true
   }
 
   export type DishesSumAggregateInputType = {
     id?: true
+    coste?: true
     price?: true
     stock?: true
   }
@@ -5890,6 +5897,7 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
+    coste?: true
     price?: true
     stock?: true
     createdAt?: true
@@ -5900,6 +5908,7 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
+    coste?: true
     price?: true
     stock?: true
     createdAt?: true
@@ -5910,6 +5919,7 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
+    coste?: true
     price?: true
     stock?: true
     content?: true
@@ -6008,6 +6018,7 @@ export namespace Prisma {
     id: number
     name: string
     description: string
+    coste: number
     price: number
     stock: number
     content: JsonValue
@@ -6038,6 +6049,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    coste?: boolean
     price?: boolean
     stock?: boolean
     content?: boolean
@@ -6049,6 +6061,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    coste?: boolean
     price?: boolean
     stock?: boolean
     content?: boolean
@@ -6060,6 +6073,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    coste?: boolean
     price?: boolean
     stock?: boolean
     content?: boolean
@@ -6071,6 +6085,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    coste?: boolean
     price?: boolean
     stock?: boolean
     content?: boolean
@@ -6078,7 +6093,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type DishesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "stock" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["dishes"]>
+  export type DishesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "coste" | "price" | "stock" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["dishes"]>
 
   export type $DishesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Dishes"
@@ -6087,6 +6102,7 @@ export namespace Prisma {
       id: number
       name: string
       description: string
+      coste: number
       price: number
       stock: number
       content: Prisma.JsonValue
@@ -6518,6 +6534,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Dishes", 'Int'>
     readonly name: FieldRef<"Dishes", 'String'>
     readonly description: FieldRef<"Dishes", 'String'>
+    readonly coste: FieldRef<"Dishes", 'Float'>
     readonly price: FieldRef<"Dishes", 'Float'>
     readonly stock: FieldRef<"Dishes", 'Int'>
     readonly content: FieldRef<"Dishes", 'Json'>
@@ -6962,6 +6979,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
+    coste: 'coste',
     price: 'price',
     stock: 'stock',
     content: 'content',
@@ -7408,6 +7426,7 @@ export namespace Prisma {
     id?: IntFilter<"Dishes"> | number
     name?: StringFilter<"Dishes"> | string
     description?: StringFilter<"Dishes"> | string
+    coste?: FloatFilter<"Dishes"> | number
     price?: FloatFilter<"Dishes"> | number
     stock?: IntFilter<"Dishes"> | number
     content?: JsonFilter<"Dishes">
@@ -7419,6 +7438,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
     content?: SortOrder
@@ -7433,6 +7453,7 @@ export namespace Prisma {
     NOT?: DishesWhereInput | DishesWhereInput[]
     name?: StringFilter<"Dishes"> | string
     description?: StringFilter<"Dishes"> | string
+    coste?: FloatFilter<"Dishes"> | number
     price?: FloatFilter<"Dishes"> | number
     stock?: IntFilter<"Dishes"> | number
     content?: JsonFilter<"Dishes">
@@ -7444,6 +7465,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
     content?: SortOrder
@@ -7463,6 +7485,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Dishes"> | number
     name?: StringWithAggregatesFilter<"Dishes"> | string
     description?: StringWithAggregatesFilter<"Dishes"> | string
+    coste?: FloatWithAggregatesFilter<"Dishes"> | number
     price?: FloatWithAggregatesFilter<"Dishes"> | number
     stock?: IntWithAggregatesFilter<"Dishes"> | number
     content?: JsonWithAggregatesFilter<"Dishes">
@@ -7768,6 +7791,7 @@ export namespace Prisma {
   export type DishesCreateInput = {
     name: string
     description: string
+    coste: number
     price: number
     stock: number
     content: JsonNullValueInput | InputJsonValue
@@ -7779,6 +7803,7 @@ export namespace Prisma {
     id?: number
     name: string
     description: string
+    coste: number
     price: number
     stock: number
     content: JsonNullValueInput | InputJsonValue
@@ -7789,6 +7814,7 @@ export namespace Prisma {
   export type DishesUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    coste?: FloatFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     content?: JsonNullValueInput | InputJsonValue
@@ -7800,6 +7826,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    coste?: FloatFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     content?: JsonNullValueInput | InputJsonValue
@@ -7811,6 +7838,7 @@ export namespace Prisma {
     id?: number
     name: string
     description: string
+    coste: number
     price: number
     stock: number
     content: JsonNullValueInput | InputJsonValue
@@ -7821,6 +7849,7 @@ export namespace Prisma {
   export type DishesUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    coste?: FloatFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     content?: JsonNullValueInput | InputJsonValue
@@ -7832,6 +7861,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    coste?: FloatFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     content?: JsonNullValueInput | InputJsonValue
@@ -8233,6 +8263,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
     content?: SortOrder
@@ -8242,6 +8273,7 @@ export namespace Prisma {
 
   export type DishesAvgOrderByAggregateInput = {
     id?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
   }
@@ -8250,6 +8282,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
     createdAt?: SortOrder
@@ -8260,6 +8293,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
     createdAt?: SortOrder
@@ -8268,6 +8302,7 @@ export namespace Prisma {
 
   export type DishesSumOrderByAggregateInput = {
     id?: SortOrder
+    coste?: SortOrder
     price?: SortOrder
     stock?: SortOrder
   }

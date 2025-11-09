@@ -7,6 +7,8 @@ export class CreateDisheDto {
     @IsString()
     description: string;
     @IsNumber()
+    coste: number;
+    @IsNumber()
     price: number;
     @IsNumber()
     stock: number;
