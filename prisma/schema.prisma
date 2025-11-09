@@ -19,6 +19,13 @@ enum Role {
   USER
 }
 
+enum Unit {
+  KILOGRAMO
+  GRAMO
+  LITRO
+  ML
+}
+
 model User {
   id Int @id @unique @default(autoincrement())
   name String
@@ -36,35 +43,39 @@ model Provider {
   email String @unique
   phone String
   address String
-  products providerProduct[]
+  products Product[]
 
   createdAt     DateTime        @default(now())
   updatedAt     DateTime?       @updatedAt
 }
 
-model providerProduct {
-  id Int @id @unique @default(autoincrement())
-  providerId Int 
-  productId Int
+// model providerProduct {
+//   id Int @id @unique @default(autoincrement())
+//   providerId Int 
+//   productId Int
 
-  provider Provider @relation(fields: [providerId], references: [id])
-  product Product @relation(fields: [productId], references: [id])
+//   provider Provider @relation(fields: [providerId], references: [id])
+//   product Product @relation(fields: [productId], references: [id])
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime?       @updatedAt
-}
+//   createdAt     DateTime        @default(now())
+//   updatedAt     DateTime?       @updatedAt
+// }
 
 model Product {
   id Int @id @unique @default(autoincrement())
+  barcode String @unique
   categoryId Int
+  providerId Int
   name String
   description String
-  category Category @relation(fields: [categoryId], references: [id])
   coste Float
   price Float
-  stock Int
+  stock Float
+  unit Unit
   expiredAt DateTime
-  provider providerProduct[]
+
+  category Category @relation(fields: [categoryId], references: [id])
+  provider Provider @relation(fields: [providerId], references: [id])
 
   createdAt     DateTime        @default(now())
   updatedAt     DateTime?       @updatedAt

@@ -141,22 +141,17 @@ exports.Prisma.ProviderScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ProviderProductScalarFieldEnum = {
-  id: 'id',
-  providerId: 'providerId',
-  productId: 'productId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
+  barcode: 'barcode',
   categoryId: 'categoryId',
+  providerId: 'providerId',
   name: 'name',
   description: 'description',
   coste: 'coste',
   price: 'price',
   stock: 'stock',
+  unit: 'unit',
   expiredAt: 'expiredAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -209,10 +204,16 @@ exports.Role = exports.$Enums.Role = {
   USER: 'USER'
 };
 
+exports.Unit = exports.$Enums.Unit = {
+  KILOGRAMO: 'KILOGRAMO',
+  GRAMO: 'GRAMO',
+  LITRO: 'LITRO',
+  ML: 'ML'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Provider: 'Provider',
-  providerProduct: 'providerProduct',
   Product: 'Product',
   Category: 'Category',
   Dishes: 'Dishes'
