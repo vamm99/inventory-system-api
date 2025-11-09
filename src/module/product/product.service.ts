@@ -91,15 +91,24 @@ export class ProductService {
     };
   }
 
-  async share(shareDto: ShareDto): Promise<Response<Product>> {
+  async share(shareDto: ShareDto): Promise<Response<Product[]>> {
     let filter: ShareDto = {};
 
-    if (shareDto.name) filter.name = shareDto.name;
-    if (shareDto.barcode) filter.barcode = shareDto.barcode;
+    if (shareDto.name)
+      filter.name = {
+        contains: shareDto.name,
+        mode: 'insensitive',
+      };
+
+    if (shareDto.barcode)
+      filter.barcode = {
+        contains: shareDto.barcode,
+        mode: 'insensitive',
+      };
     if (Object.keys(filter).length === 0)
       throw new BadRequestException('No data to search');
 
-    const product = await this.prisma.product.findFirst({ where: filter });
+    const product = await this.prisma.product.findMany({ where: filter });
     if (!product) {
       throw new BadRequestException('Product not found');
     }
@@ -136,7 +145,7 @@ export class ProductService {
         category: { select: { id: true, name: true } },
         provider: { select: { id: true, name: true } },
       },
-    }); 
+    });
 
     return {
       status: 200,

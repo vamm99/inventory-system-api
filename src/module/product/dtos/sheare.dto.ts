@@ -3,8 +3,8 @@ import { IsOptional, IsString } from "class-validator";
 export class ShareDto {
     @IsString()
     @IsOptional()
-    barcode?: string;
+    barcode?: {};
     @IsString()
     @IsOptional()
-    name?: string;
+    name?: {};
 }

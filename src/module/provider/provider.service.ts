@@ -71,15 +71,24 @@ export class ProviderService {
         };
     }
 
-    async share(shareDto: SheareDto): Promise<Response<Provider>> {
+    async share(shareDto: SheareDto): Promise<Response<Provider[]>> {
         let filter: SheareDto = {};
         
-        if (shareDto.name) filter.name = shareDto.name;
-        if (shareDto.email) filter.email = shareDto.email;
-        if (shareDto.phone) filter.phone = shareDto.phone;
+        if (shareDto.name) filter.name = {
+            contains: shareDto.name,
+            mode: 'insensitive',
+        }
+        if (shareDto.email) filter.email = {
+            contains: shareDto.email,
+            mode: 'insensitive',
+        }
+        if (shareDto.phone) filter.phone = {
+            contains: shareDto.phone,
+            mode: 'insensitive',
+        }
         if (Object.keys(filter).length === 0) throw new BadRequestException('No data to search');
 
-        const provider = await this.prisma.provider.findFirst({
+        const provider = await this.prisma.provider.findMany({
             where: filter
         });
         if (!provider) {

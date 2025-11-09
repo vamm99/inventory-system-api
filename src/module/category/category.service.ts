@@ -66,10 +66,13 @@ export class CategoryService {
         };
     }
 
-    async findByName(name: string): Promise<Response<Category>> {
-        const category = await this.prisma.category.findFirst({
+    async findByName(name: string): Promise<Response<Category[]>> {
+        const category = await this.prisma.category.findMany({
             where: {
-                name
+                name: {
+                    contains: name,
+                    mode: 'insensitive',
+                }
             }
         });
         if (!category) {

@@ -3,12 +3,12 @@ import { IsEmail, IsOptional, IsString } from "class-validator";
 export class SheareDto {
     @IsString()
     @IsOptional()
-    name?: string;
-    @IsEmail()
-    @IsOptional()
-    email?: string;
+    name?: {};
     @IsString()
     @IsOptional()
-    phone?: string;
+    email?: {};
+    @IsString()
+    @IsOptional()
+    phone?: {};
 }  
     
