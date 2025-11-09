@@ -4,9 +4,10 @@ import { ProductModule } from './module/product/product.module';
 import { ProviderModule } from './module/provider/provider.module';
 import { DisheModule } from './module/dishe/dishe.module';
 import { CategoryModule } from './module/category/category.module';
+import { InventoryModule } from './module/inventory/inventory.module';
 
 @Module({
-  imports: [ProductModule, ProviderModule, DisheModule, CategoryModule],
+  imports: [ProductModule, ProviderModule, DisheModule, CategoryModule, InventoryModule],
   controllers: [],
   providers: [PrismaService],
 })

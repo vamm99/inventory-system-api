@@ -7,5 +7,7 @@ export type Response<T> = {
         total: number;
         lastPage: number;
     };
+    totalCostOfInventory?: number;
+    totalPriceOfInventory?: number;
     data: T;
 };
