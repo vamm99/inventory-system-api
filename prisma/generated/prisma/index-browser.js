@@ -176,6 +176,14 @@ exports.Prisma.DishesScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.BarcodeScalarFieldEnum = {
+  id: 'id',
+  barcode: 'barcode',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -217,7 +225,8 @@ exports.Prisma.ModelName = {
   Provider: 'Provider',
   Product: 'Product',
   Category: 'Category',
-  Dishes: 'Dishes'
+  Dishes: 'Dishes',
+  barcode: 'barcode'
 };
 
 /**

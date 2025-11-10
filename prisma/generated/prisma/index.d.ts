@@ -38,6 +38,11 @@ export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
  * 
  */
 export type Dishes = $Result.DefaultSelection<Prisma.$DishesPayload>
+/**
+ * Model barcode
+ * 
+ */
+export type barcode = $Result.DefaultSelection<Prisma.$barcodePayload>
 
 /**
  * Enums
@@ -237,6 +242,16 @@ export class PrismaClient<
     * ```
     */
   get dishes(): Prisma.DishesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.barcode`: Exposes CRUD operations for the **barcode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Barcodes
+    * const barcodes = await prisma.barcode.findMany()
+    * ```
+    */
+  get barcode(): Prisma.barcodeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -682,7 +697,8 @@ export namespace Prisma {
     Provider: 'Provider',
     Product: 'Product',
     Category: 'Category',
-    Dishes: 'Dishes'
+    Dishes: 'Dishes',
+    barcode: 'barcode'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -701,7 +717,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "provider" | "product" | "category" | "dishes"
+      modelProps: "user" | "provider" | "product" | "category" | "dishes" | "barcode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1075,6 +1091,80 @@ export namespace Prisma {
           }
         }
       }
+      barcode: {
+        payload: Prisma.$barcodePayload<ExtArgs>
+        fields: Prisma.barcodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.barcodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.barcodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>
+          }
+          findFirst: {
+            args: Prisma.barcodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.barcodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>
+          }
+          findMany: {
+            args: Prisma.barcodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>[]
+          }
+          create: {
+            args: Prisma.barcodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>
+          }
+          createMany: {
+            args: Prisma.barcodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.barcodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>[]
+          }
+          delete: {
+            args: Prisma.barcodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>
+          }
+          update: {
+            args: Prisma.barcodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>
+          }
+          deleteMany: {
+            args: Prisma.barcodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.barcodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.barcodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>[]
+          }
+          upsert: {
+            args: Prisma.barcodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$barcodePayload>
+          }
+          aggregate: {
+            args: Prisma.BarcodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBarcode>
+          }
+          groupBy: {
+            args: Prisma.barcodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BarcodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.barcodeCountArgs<ExtArgs>
+            result: $Utils.Optional<BarcodeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1176,6 +1266,7 @@ export namespace Prisma {
     product?: ProductOmit
     category?: CategoryOmit
     dishes?: DishesOmit
+    barcode?: barcodeOmit
   }
 
   /* Types for Logging */
@@ -6907,6 +6998,1035 @@ export namespace Prisma {
 
 
   /**
+   * Model barcode
+   */
+
+  export type AggregateBarcode = {
+    _count: BarcodeCountAggregateOutputType | null
+    _avg: BarcodeAvgAggregateOutputType | null
+    _sum: BarcodeSumAggregateOutputType | null
+    _min: BarcodeMinAggregateOutputType | null
+    _max: BarcodeMaxAggregateOutputType | null
+  }
+
+  export type BarcodeAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type BarcodeSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type BarcodeMinAggregateOutputType = {
+    id: number | null
+    barcode: string | null
+    imageUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BarcodeMaxAggregateOutputType = {
+    id: number | null
+    barcode: string | null
+    imageUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BarcodeCountAggregateOutputType = {
+    id: number
+    barcode: number
+    imageUrl: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BarcodeAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type BarcodeSumAggregateInputType = {
+    id?: true
+  }
+
+  export type BarcodeMinAggregateInputType = {
+    id?: true
+    barcode?: true
+    imageUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BarcodeMaxAggregateInputType = {
+    id?: true
+    barcode?: true
+    imageUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BarcodeCountAggregateInputType = {
+    id?: true
+    barcode?: true
+    imageUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BarcodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which barcode to aggregate.
+     */
+    where?: barcodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of barcodes to fetch.
+     */
+    orderBy?: barcodeOrderByWithRelationInput | barcodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: barcodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` barcodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` barcodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned barcodes
+    **/
+    _count?: true | BarcodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BarcodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BarcodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BarcodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BarcodeMaxAggregateInputType
+  }
+
+  export type GetBarcodeAggregateType<T extends BarcodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateBarcode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBarcode[P]>
+      : GetScalarType<T[P], AggregateBarcode[P]>
+  }
+
+
+
+
+  export type barcodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: barcodeWhereInput
+    orderBy?: barcodeOrderByWithAggregationInput | barcodeOrderByWithAggregationInput[]
+    by: BarcodeScalarFieldEnum[] | BarcodeScalarFieldEnum
+    having?: barcodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BarcodeCountAggregateInputType | true
+    _avg?: BarcodeAvgAggregateInputType
+    _sum?: BarcodeSumAggregateInputType
+    _min?: BarcodeMinAggregateInputType
+    _max?: BarcodeMaxAggregateInputType
+  }
+
+  export type BarcodeGroupByOutputType = {
+    id: number
+    barcode: string
+    imageUrl: string
+    createdAt: Date
+    updatedAt: Date | null
+    _count: BarcodeCountAggregateOutputType | null
+    _avg: BarcodeAvgAggregateOutputType | null
+    _sum: BarcodeSumAggregateOutputType | null
+    _min: BarcodeMinAggregateOutputType | null
+    _max: BarcodeMaxAggregateOutputType | null
+  }
+
+  type GetBarcodeGroupByPayload<T extends barcodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BarcodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BarcodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BarcodeGroupByOutputType[P]>
+            : GetScalarType<T[P], BarcodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type barcodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    imageUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["barcode"]>
+
+  export type barcodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    imageUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["barcode"]>
+
+  export type barcodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    barcode?: boolean
+    imageUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["barcode"]>
+
+  export type barcodeSelectScalar = {
+    id?: boolean
+    barcode?: boolean
+    imageUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type barcodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["barcode"]>
+
+  export type $barcodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "barcode"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      barcode: string
+      imageUrl: string
+      createdAt: Date
+      updatedAt: Date | null
+    }, ExtArgs["result"]["barcode"]>
+    composites: {}
+  }
+
+  type barcodeGetPayload<S extends boolean | null | undefined | barcodeDefaultArgs> = $Result.GetResult<Prisma.$barcodePayload, S>
+
+  type barcodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<barcodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BarcodeCountAggregateInputType | true
+    }
+
+  export interface barcodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['barcode'], meta: { name: 'barcode' } }
+    /**
+     * Find zero or one Barcode that matches the filter.
+     * @param {barcodeFindUniqueArgs} args - Arguments to find a Barcode
+     * @example
+     * // Get one Barcode
+     * const barcode = await prisma.barcode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends barcodeFindUniqueArgs>(args: SelectSubset<T, barcodeFindUniqueArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Barcode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {barcodeFindUniqueOrThrowArgs} args - Arguments to find a Barcode
+     * @example
+     * // Get one Barcode
+     * const barcode = await prisma.barcode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends barcodeFindUniqueOrThrowArgs>(args: SelectSubset<T, barcodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Barcode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {barcodeFindFirstArgs} args - Arguments to find a Barcode
+     * @example
+     * // Get one Barcode
+     * const barcode = await prisma.barcode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends barcodeFindFirstArgs>(args?: SelectSubset<T, barcodeFindFirstArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Barcode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {barcodeFindFirstOrThrowArgs} args - Arguments to find a Barcode
+     * @example
+     * // Get one Barcode
+     * const barcode = await prisma.barcode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends barcodeFindFirstOrThrowArgs>(args?: SelectSubset<T, barcodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Barcodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {barcodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Barcodes
+     * const barcodes = await prisma.barcode.findMany()
+     * 
+     * // Get first 10 Barcodes
+     * const barcodes = await prisma.barcode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const barcodeWithIdOnly = await prisma.barcode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends barcodeFindManyArgs>(args?: SelectSubset<T, barcodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Barcode.
+     * @param {barcodeCreateArgs} args - Arguments to create a Barcode.
+     * @example
+     * // Create one Barcode
+     * const Barcode = await prisma.barcode.create({
+     *   data: {
+     *     // ... data to create a Barcode
+     *   }
+     * })
+     * 
+     */
+    create<T extends barcodeCreateArgs>(args: SelectSubset<T, barcodeCreateArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Barcodes.
+     * @param {barcodeCreateManyArgs} args - Arguments to create many Barcodes.
+     * @example
+     * // Create many Barcodes
+     * const barcode = await prisma.barcode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends barcodeCreateManyArgs>(args?: SelectSubset<T, barcodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Barcodes and returns the data saved in the database.
+     * @param {barcodeCreateManyAndReturnArgs} args - Arguments to create many Barcodes.
+     * @example
+     * // Create many Barcodes
+     * const barcode = await prisma.barcode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Barcodes and only return the `id`
+     * const barcodeWithIdOnly = await prisma.barcode.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends barcodeCreateManyAndReturnArgs>(args?: SelectSubset<T, barcodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Barcode.
+     * @param {barcodeDeleteArgs} args - Arguments to delete one Barcode.
+     * @example
+     * // Delete one Barcode
+     * const Barcode = await prisma.barcode.delete({
+     *   where: {
+     *     // ... filter to delete one Barcode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends barcodeDeleteArgs>(args: SelectSubset<T, barcodeDeleteArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Barcode.
+     * @param {barcodeUpdateArgs} args - Arguments to update one Barcode.
+     * @example
+     * // Update one Barcode
+     * const barcode = await prisma.barcode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends barcodeUpdateArgs>(args: SelectSubset<T, barcodeUpdateArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Barcodes.
+     * @param {barcodeDeleteManyArgs} args - Arguments to filter Barcodes to delete.
+     * @example
+     * // Delete a few Barcodes
+     * const { count } = await prisma.barcode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends barcodeDeleteManyArgs>(args?: SelectSubset<T, barcodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Barcodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {barcodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Barcodes
+     * const barcode = await prisma.barcode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends barcodeUpdateManyArgs>(args: SelectSubset<T, barcodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Barcodes and returns the data updated in the database.
+     * @param {barcodeUpdateManyAndReturnArgs} args - Arguments to update many Barcodes.
+     * @example
+     * // Update many Barcodes
+     * const barcode = await prisma.barcode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Barcodes and only return the `id`
+     * const barcodeWithIdOnly = await prisma.barcode.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends barcodeUpdateManyAndReturnArgs>(args: SelectSubset<T, barcodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Barcode.
+     * @param {barcodeUpsertArgs} args - Arguments to update or create a Barcode.
+     * @example
+     * // Update or create a Barcode
+     * const barcode = await prisma.barcode.upsert({
+     *   create: {
+     *     // ... data to create a Barcode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Barcode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends barcodeUpsertArgs>(args: SelectSubset<T, barcodeUpsertArgs<ExtArgs>>): Prisma__barcodeClient<$Result.GetResult<Prisma.$barcodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Barcodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {barcodeCountArgs} args - Arguments to filter Barcodes to count.
+     * @example
+     * // Count the number of Barcodes
+     * const count = await prisma.barcode.count({
+     *   where: {
+     *     // ... the filter for the Barcodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends barcodeCountArgs>(
+      args?: Subset<T, barcodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BarcodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Barcode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BarcodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BarcodeAggregateArgs>(args: Subset<T, BarcodeAggregateArgs>): Prisma.PrismaPromise<GetBarcodeAggregateType<T>>
+
+    /**
+     * Group by Barcode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {barcodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends barcodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: barcodeGroupByArgs['orderBy'] }
+        : { orderBy?: barcodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, barcodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBarcodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the barcode model
+   */
+  readonly fields: barcodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for barcode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__barcodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the barcode model
+   */
+  interface barcodeFieldRefs {
+    readonly id: FieldRef<"barcode", 'Int'>
+    readonly barcode: FieldRef<"barcode", 'String'>
+    readonly imageUrl: FieldRef<"barcode", 'String'>
+    readonly createdAt: FieldRef<"barcode", 'DateTime'>
+    readonly updatedAt: FieldRef<"barcode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * barcode findUnique
+   */
+  export type barcodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * Filter, which barcode to fetch.
+     */
+    where: barcodeWhereUniqueInput
+  }
+
+  /**
+   * barcode findUniqueOrThrow
+   */
+  export type barcodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * Filter, which barcode to fetch.
+     */
+    where: barcodeWhereUniqueInput
+  }
+
+  /**
+   * barcode findFirst
+   */
+  export type barcodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * Filter, which barcode to fetch.
+     */
+    where?: barcodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of barcodes to fetch.
+     */
+    orderBy?: barcodeOrderByWithRelationInput | barcodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for barcodes.
+     */
+    cursor?: barcodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` barcodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` barcodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of barcodes.
+     */
+    distinct?: BarcodeScalarFieldEnum | BarcodeScalarFieldEnum[]
+  }
+
+  /**
+   * barcode findFirstOrThrow
+   */
+  export type barcodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * Filter, which barcode to fetch.
+     */
+    where?: barcodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of barcodes to fetch.
+     */
+    orderBy?: barcodeOrderByWithRelationInput | barcodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for barcodes.
+     */
+    cursor?: barcodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` barcodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` barcodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of barcodes.
+     */
+    distinct?: BarcodeScalarFieldEnum | BarcodeScalarFieldEnum[]
+  }
+
+  /**
+   * barcode findMany
+   */
+  export type barcodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * Filter, which barcodes to fetch.
+     */
+    where?: barcodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of barcodes to fetch.
+     */
+    orderBy?: barcodeOrderByWithRelationInput | barcodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing barcodes.
+     */
+    cursor?: barcodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` barcodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` barcodes.
+     */
+    skip?: number
+    distinct?: BarcodeScalarFieldEnum | BarcodeScalarFieldEnum[]
+  }
+
+  /**
+   * barcode create
+   */
+  export type barcodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * The data needed to create a barcode.
+     */
+    data: XOR<barcodeCreateInput, barcodeUncheckedCreateInput>
+  }
+
+  /**
+   * barcode createMany
+   */
+  export type barcodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many barcodes.
+     */
+    data: barcodeCreateManyInput | barcodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * barcode createManyAndReturn
+   */
+  export type barcodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many barcodes.
+     */
+    data: barcodeCreateManyInput | barcodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * barcode update
+   */
+  export type barcodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * The data needed to update a barcode.
+     */
+    data: XOR<barcodeUpdateInput, barcodeUncheckedUpdateInput>
+    /**
+     * Choose, which barcode to update.
+     */
+    where: barcodeWhereUniqueInput
+  }
+
+  /**
+   * barcode updateMany
+   */
+  export type barcodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update barcodes.
+     */
+    data: XOR<barcodeUpdateManyMutationInput, barcodeUncheckedUpdateManyInput>
+    /**
+     * Filter which barcodes to update
+     */
+    where?: barcodeWhereInput
+    /**
+     * Limit how many barcodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * barcode updateManyAndReturn
+   */
+  export type barcodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * The data used to update barcodes.
+     */
+    data: XOR<barcodeUpdateManyMutationInput, barcodeUncheckedUpdateManyInput>
+    /**
+     * Filter which barcodes to update
+     */
+    where?: barcodeWhereInput
+    /**
+     * Limit how many barcodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * barcode upsert
+   */
+  export type barcodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * The filter to search for the barcode to update in case it exists.
+     */
+    where: barcodeWhereUniqueInput
+    /**
+     * In case the barcode found by the `where` argument doesn't exist, create a new barcode with this data.
+     */
+    create: XOR<barcodeCreateInput, barcodeUncheckedCreateInput>
+    /**
+     * In case the barcode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<barcodeUpdateInput, barcodeUncheckedUpdateInput>
+  }
+
+  /**
+   * barcode delete
+   */
+  export type barcodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+    /**
+     * Filter which barcode to delete.
+     */
+    where: barcodeWhereUniqueInput
+  }
+
+  /**
+   * barcode deleteMany
+   */
+  export type barcodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which barcodes to delete
+     */
+    where?: barcodeWhereInput
+    /**
+     * Limit how many barcodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * barcode without action
+   */
+  export type barcodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the barcode
+     */
+    select?: barcodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the barcode
+     */
+    omit?: barcodeOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6988,6 +8108,17 @@ export namespace Prisma {
   };
 
   export type DishesScalarFieldEnum = (typeof DishesScalarFieldEnum)[keyof typeof DishesScalarFieldEnum]
+
+
+  export const BarcodeScalarFieldEnum: {
+    id: 'id',
+    barcode: 'barcode',
+    imageUrl: 'imageUrl',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BarcodeScalarFieldEnum = (typeof BarcodeScalarFieldEnum)[keyof typeof BarcodeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7493,6 +8624,60 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableWithAggregatesFilter<"Dishes"> | Date | string | null
   }
 
+  export type barcodeWhereInput = {
+    AND?: barcodeWhereInput | barcodeWhereInput[]
+    OR?: barcodeWhereInput[]
+    NOT?: barcodeWhereInput | barcodeWhereInput[]
+    id?: IntFilter<"barcode"> | number
+    barcode?: StringFilter<"barcode"> | string
+    imageUrl?: StringFilter<"barcode"> | string
+    createdAt?: DateTimeFilter<"barcode"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"barcode"> | Date | string | null
+  }
+
+  export type barcodeOrderByWithRelationInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
+  }
+
+  export type barcodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    barcode?: string
+    AND?: barcodeWhereInput | barcodeWhereInput[]
+    OR?: barcodeWhereInput[]
+    NOT?: barcodeWhereInput | barcodeWhereInput[]
+    imageUrl?: StringFilter<"barcode"> | string
+    createdAt?: DateTimeFilter<"barcode"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"barcode"> | Date | string | null
+  }, "id" | "id" | "barcode">
+
+  export type barcodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
+    _count?: barcodeCountOrderByAggregateInput
+    _avg?: barcodeAvgOrderByAggregateInput
+    _max?: barcodeMaxOrderByAggregateInput
+    _min?: barcodeMinOrderByAggregateInput
+    _sum?: barcodeSumOrderByAggregateInput
+  }
+
+  export type barcodeScalarWhereWithAggregatesInput = {
+    AND?: barcodeScalarWhereWithAggregatesInput | barcodeScalarWhereWithAggregatesInput[]
+    OR?: barcodeScalarWhereWithAggregatesInput[]
+    NOT?: barcodeScalarWhereWithAggregatesInput | barcodeScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"barcode"> | number
+    barcode?: StringWithAggregatesFilter<"barcode"> | string
+    imageUrl?: StringWithAggregatesFilter<"barcode"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"barcode"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"barcode"> | Date | string | null
+  }
+
   export type UserCreateInput = {
     name: string
     email: string
@@ -7865,6 +9050,59 @@ export namespace Prisma {
     price?: FloatFieldUpdateOperationsInput | number
     stock?: IntFieldUpdateOperationsInput | number
     content?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type barcodeCreateInput = {
+    barcode: string
+    imageUrl: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type barcodeUncheckedCreateInput = {
+    id?: number
+    barcode: string
+    imageUrl: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type barcodeUpdateInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type barcodeUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type barcodeCreateManyInput = {
+    id?: number
+    barcode: string
+    imageUrl: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type barcodeUpdateManyMutationInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type barcodeUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -8331,6 +9569,38 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedJsonFilter<$PrismaModel>
     _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type barcodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type barcodeAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type barcodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type barcodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    barcode?: SortOrder
+    imageUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type barcodeSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

@@ -49,18 +49,6 @@ model Provider {
   updatedAt DateTime? @updatedAt
 }
 
-// model providerProduct {
-//   id Int @id @unique @default(autoincrement())
-//   providerId Int 
-//   productId Int
-
-//   provider Provider @relation(fields: [providerId], references: [id])
-//   product Product @relation(fields: [productId], references: [id])
-
-//   createdAt     DateTime        @default(now())
-//   updatedAt     DateTime?       @updatedAt
-// }
-
 model Product {
   id          Int      @id @unique @default(autoincrement())
   barcode     String   @unique
@@ -98,6 +86,15 @@ model Dishes {
   price       Float
   stock       Int
   content     Json
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model barcode {
+  id       Int    @id @unique @default(autoincrement())
+  barcode  String @unique
+  imageUrl String
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
