@@ -6,7 +6,9 @@ import { Product } from '../../../prisma/generated/prisma';
 import { ShareDto } from './dtos/sheare.dto';
 import { UpdateProductDto } from './dtos/update.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN')
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}

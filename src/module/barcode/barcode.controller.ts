@@ -13,7 +13,9 @@ import { BarcodeService } from './barcode.service';
 import { CreateBarcodeDto } from './dto/create.dto';
 import { UpdateBarcodeDto } from './dto/update.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN')
 @Controller('barcode')
 export class BarcodeController {
   constructor(private readonly barcodeService: BarcodeService) {}

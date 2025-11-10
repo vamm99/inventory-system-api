@@ -4,7 +4,9 @@ import { CreateProviderDto } from './dto/create.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
 import { SheareDto } from './dto/sheare.dto';
 import { UpdateProviderDto } from './dto/update.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN')
 @Controller('provider')
 export class ProviderController {
   constructor(private readonly providerService: ProviderService) {}

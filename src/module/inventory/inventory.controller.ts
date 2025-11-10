@@ -2,7 +2,9 @@ import { Controller, Get, Query, Res } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { PaginationDto } from '@/utils/pagination.dto';
 import express from 'express';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN')
 @Controller('inventory')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}

@@ -3,7 +3,9 @@ import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create.dto';
 import { UpdateCategoryDto } from './dto/update.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN')
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}

@@ -4,7 +4,9 @@ import { CreateDisheDto } from './dto/create.dto';
 import { UpdateDisheDto } from './dto/update.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
 import { ShareDto } from './dto/sheare.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
+@Roles('ADMIN')
 @Controller('dishe')
 export class DisheController {
   constructor(private readonly disheService: DisheService) {}
