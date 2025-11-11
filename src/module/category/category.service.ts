@@ -32,7 +32,10 @@ export class CategoryService {
         const lasPage = Math.ceil(totalPage / limit);
         const categories = await this.prisma.category.findMany({
             take: limit,
-            skip: (page - 1) * limit
+            skip: (page - 1) * limit,
+            orderBy: {
+                createdAt: 'desc'
+            }
         });
         if (!categories) {
             throw new BadRequestException('Categories not found');

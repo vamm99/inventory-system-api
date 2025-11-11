@@ -24,9 +24,9 @@ export class RolesGuard implements CanActivate {
         }
 
         // El rol del usuario es un string, no un array
-        const hasRole = requiredRoles.some((role) => user.role === role);
+        const hasRole = requiredRoles.some((role) => user.data.role === role);
         if (!hasRole) {
-            throw new UnauthorizedException(`Rol requerido: ${requiredRoles.join(', ')}. Tu rol: ${user.role}`);
+            throw new UnauthorizedException(`Rol requerido: ${requiredRoles.join(', ')}. Tu rol: ${user.data.role}`);
         }
 
         return true;
