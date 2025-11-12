@@ -7,6 +7,7 @@ import { Response } from '@/utils/response';
 import { UpdateProductDto } from './dtos/update.dto';
 import { ShareDto } from './dtos/sheare.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
+import { filter } from 'rxjs';
 
 @Injectable()
 export class ProductService {
@@ -92,23 +93,27 @@ export class ProductService {
   }
 
   async share(shareDto: ShareDto): Promise<Response<Product[]>> {
-    let filter: ShareDto = {};
+    const orConditions: any[] = [];
 
     if (shareDto.name)
-      filter.name = {
-        contains: shareDto.name,
-        mode: 'insensitive',
-      };
+      orConditions.push({
+        name: {
+          contains: shareDto.name,
+          mode: 'insensitive',
+        },
+      });
 
     if (shareDto.barcode)
-      filter.barcode = {
-        contains: shareDto.barcode,
-        mode: 'insensitive',
-      };
-    if (Object.keys(filter).length === 0)
+      orConditions.push({
+        barcode: {
+          contains: shareDto.barcode,
+          mode: 'insensitive',
+        },
+      });
+    if (orConditions.length === 0)
       throw new BadRequestException('No data to search');
 
-    const product = await this.prisma.product.findMany({ where: filter });
+    const product = await this.prisma.product.findMany({ where: { OR: orConditions } });
     if (!product) {
       throw new BadRequestException('Product not found');
     }
