@@ -57,9 +57,10 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 
 export const Unit: {
-  KILOGRAMO: 'KILOGRAMO',
-  GRAMO: 'GRAMO',
-  LITRO: 'LITRO',
+  KG: 'KG',
+  UND: 'UND',
+  GR: 'GR',
+  L: 'L',
   ML: 'ML'
 };
 

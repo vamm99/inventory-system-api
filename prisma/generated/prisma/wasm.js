@@ -186,9 +186,10 @@ exports.Role = exports.$Enums.Role = {
 };
 
 exports.Unit = exports.$Enums.Unit = {
-  KILOGRAMO: 'KILOGRAMO',
-  GRAMO: 'GRAMO',
-  LITRO: 'LITRO',
+  KG: 'KG',
+  UND: 'UND',
+  GR: 'GR',
+  L: 'L',
   ML: 'ML'
 };
 
@@ -211,7 +212,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\generated\\prisma",
+      "value": "/home/victor/NestJS/inventory-system-api/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -220,12 +221,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/victor/NestJS/inventory-system-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -247,8 +248,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nenum Unit {\n  KILOGRAMO\n  GRAMO\n  LITRO\n  ML\n}\n\nmodel User {\n  id       Int    @id @unique @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n  role     Role   @default(ADMIN)\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Provider {\n  id       Int       @id @unique @default(autoincrement())\n  name     String\n  email    String    @unique\n  phone    String\n  address  String\n  products Product[]\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Product {\n  id          Int      @id @unique @default(autoincrement())\n  barcode     String   @unique\n  categoryId  Int\n  providerId  Int\n  name        String\n  description String\n  coste       Float\n  price       Float\n  stock       Float\n  unit        Unit\n  expiredAt   DateTime\n\n  category Category @relation(fields: [categoryId], references: [id])\n  provider Provider @relation(fields: [providerId], references: [id])\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Category {\n  id       Int       @id @unique @default(autoincrement())\n  name     String\n  products Product[]\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Dishes {\n  id          Int    @id @unique @default(autoincrement())\n  name        String\n  description String\n  coste       Float\n  price       Float\n  stock       Int\n  content     Json\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel barcode {\n  id       Int    @id @unique @default(autoincrement())\n  barcode  String @unique\n  imageUrl String\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n",
-  "inlineSchemaHash": "175f4a9b7a945fa5f28c9cd76a5152b68d1834c423452a697dc179a46b9ac59a",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nenum Unit {\n  KG\n  UND\n  GR\n  L\n  ML\n}\n\nmodel User {\n  id       Int    @id @unique @default(autoincrement())\n  name     String\n  email    String @unique\n  password String\n  role     Role   @default(ADMIN)\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Provider {\n  id       Int       @id @unique @default(autoincrement())\n  name     String\n  email    String    @unique\n  phone    String\n  address  String\n  products Product[]\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Product {\n  id          Int      @id @unique @default(autoincrement())\n  barcode     String   @unique\n  categoryId  Int\n  providerId  Int\n  name        String\n  description String\n  coste       Float\n  price       Float\n  stock       Float\n  unit        Unit\n  expiredAt   DateTime\n\n  category Category @relation(fields: [categoryId], references: [id])\n  provider Provider @relation(fields: [providerId], references: [id])\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Category {\n  id       Int       @id @unique @default(autoincrement())\n  name     String\n  products Product[]\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel Dishes {\n  id          Int    @id @unique @default(autoincrement())\n  name        String\n  description String\n  coste       Float\n  price       Float\n  stock       Int\n  content     Json\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n\nmodel barcode {\n  id       Int    @id @unique @default(autoincrement())\n  barcode  String @unique\n  imageUrl String\n\n  createdAt DateTime  @default(now())\n  updatedAt DateTime? @updatedAt\n}\n",
+  "inlineSchemaHash": "332a4ac7413ec7b16620858169d8f09213b221c7a68251c5d28f47a25fbf60d5",
   "copyEngine": true
 }
 config.dirname = '/'

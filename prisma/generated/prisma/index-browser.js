@@ -214,9 +214,10 @@ exports.Role = exports.$Enums.Role = {
 };
 
 exports.Unit = exports.$Enums.Unit = {
-  KILOGRAMO: 'KILOGRAMO',
-  GRAMO: 'GRAMO',
-  LITRO: 'LITRO',
+  KG: 'KG',
+  UND: 'UND',
+  GR: 'GR',
+  L: 'L',
   ML: 'ML'
 };
 

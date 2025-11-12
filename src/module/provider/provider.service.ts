@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@/core/prisma.service';
 import { CreateProviderDto } from './dto/create.dto';
-import { Provider } from '../../../prisma/generated/prisma';
+import { Product, Provider } from '../../../prisma/generated/prisma';
 import { Response } from '@/utils/response';
 import { BadRequestException } from '@nestjs/common';
 import { PaginationDto } from '@/utils/pagination.dto';
@@ -28,6 +28,45 @@ export class ProviderService {
             status: 201,
             message: 'Provider created successfully',
             data: createProvider
+        };
+    }
+
+    async findProductsByProviderId(id: number, pagination: PaginationDto): Promise<Response<Product[]>> {
+        const { limit = 10, page = 1 } = pagination;
+        const totalPage = await this.prisma.product.count({
+            where: {
+                providerId: id
+            }
+        });
+        const lasPage = Math.ceil(totalPage / limit);
+        const products = await this.prisma.product.findMany({
+            where: {
+                providerId: id
+            },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
+            },
+            take: limit,
+            skip: (page - 1) * limit
+        });
+        if (!products) {
+            throw new BadRequestException('Products not found');
+        }
+        return {
+            status: 200,
+            message: 'Products found successfully',
+            pagination: {
+                limit,
+                page,
+                total: totalPage,
+                lastPage: lasPage
+            },
+            data: products
         };
     }
 

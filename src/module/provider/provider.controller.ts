@@ -20,6 +20,11 @@ export class ProviderController {
   async findAll(@Query() pagination: PaginationDto) {
     return this.providerService.findAll(pagination);
   }
+
+  @Get('products/:id')
+  async findProductsByProviderId(@Param('id') id: number, @Query() pagination: PaginationDto) {
+    return this.providerService.findProductsByProviderId(id, pagination);
+  }
   
   @Get('share')
   async share(@Query() shareDto: SheareDto) {

@@ -20,9 +20,10 @@ enum Role {
 }
 
 enum Unit {
-  KILOGRAMO
-  GRAMO
-  LITRO
+  KG
+  UND
+  GR
+  L
   ML
 }
 
