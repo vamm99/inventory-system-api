@@ -211,7 +211,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/victor/NestJS/inventory-system-api/prisma/generated/prisma",
+      "value": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -220,12 +220,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/victor/NestJS/inventory-system-api/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
