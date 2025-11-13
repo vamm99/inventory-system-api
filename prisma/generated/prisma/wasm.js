@@ -213,7 +213,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\generated\\prisma",
+      "value": "/home/victor/NestJS/inventory-system-api/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -222,12 +222,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/victor/NestJS/inventory-system-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -241,6 +241,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

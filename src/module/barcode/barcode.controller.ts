@@ -8,17 +8,20 @@ import {
   Patch,
   Query,
   ParseIntPipe,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { BarcodeService } from './barcode.service';
 import { CreateBarcodeDto } from './dto/create.dto';
 import { UpdateBarcodeDto } from './dto/update.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
+import express from 'express';
 
 @Roles('ADMIN')
 @Controller('barcode')
 export class BarcodeController {
-  constructor(private readonly barcodeService: BarcodeService) { }
+  constructor(private readonly barcodeService: BarcodeService) {}
 
   @Post()
   create(@Body() dto: CreateBarcodeDto) {
@@ -28,6 +31,43 @@ export class BarcodeController {
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.barcodeService.findAll(paginationDto);
+  }
+
+  // 📄 Generar PDF de códigos de barras
+  @Get('pdf')
+  async generatePDF(
+    @Query('isUsed') isUsed: string | undefined,
+    @Res() res: express.Response,
+  ) {
+    try {
+      // Convertir query param a boolean si existe
+      let filter: boolean | undefined;
+      if (isUsed !== undefined) {
+        filter = isUsed === 'true';
+      }
+
+      const pdf = await this.barcodeService.generatePDF(filter);
+
+      // Nombre del archivo según el filtro
+      const filename =
+        filter === true
+          ? 'codigos-usados.pdf'
+          : filter === false
+            ? 'codigos-disponibles.pdf'
+            : 'todos-los-codigos.pdf';
+
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="${filename}"`,
+      );
+      res.status(HttpStatus.OK).send(pdf);
+    } catch (error) {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        status: 500,
+        message: `Error al generar PDF: ${error.message}`,
+      });
+    }
   }
 
   @Get('filter')
