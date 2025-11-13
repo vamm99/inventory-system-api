@@ -12,7 +12,7 @@ import { PrismaService } from '@/core/prisma.service';
 
 @Injectable()
 export class BarcodeService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   // 🔹 Función interna: genera un EAN-13 válido
   private generateEAN13(base12: string): string {
@@ -89,16 +89,55 @@ export class BarcodeService {
     };
   }
 
-  // 🔹 Obtener todos
-  async findAll(pagination: PaginationDto): Promise<Response<barcode[]>> {
+  // 🔹 Obtener todos con información del producto
+  async findAll(pagination: PaginationDto): Promise<Response<any[]>> {
     const { page = 1, limit = 10 } = pagination;
     const totalPage = await this.prisma.barcode.count();
     const lastPage = Math.ceil(totalPage / limit);
+
     const barcodes = await this.prisma.barcode.findMany({
       take: limit,
       skip: (page - 1) * limit,
       orderBy: { id: 'desc' },
     });
+
+    // Obtener los productos asociados a estos barcodes
+    const barcodesWithProducts = await Promise.all(
+      barcodes.map(async (barcode) => {
+        let product: any = null;
+
+        if (barcode.isUsed) {
+          product = await this.prisma.product.findFirst({
+            where: { barcode: barcode.barcode },
+            select: {
+              id: true,
+              name: true,
+              barcode: true,
+              price: true,
+              stock: true,
+              category: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+              provider: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          });
+        }
+
+        return {
+          ...barcode,
+          product,
+        };
+      })
+    );
+
     return {
       status: 200,
       message: 'Códigos obtenidos exitosamente',
@@ -106,9 +145,132 @@ export class BarcodeService {
         limit,
         page,
         total: totalPage,
-        lastPage: lastPage,
+        lastPage,
       },
-      data: barcodes,
+      data: barcodesWithProducts,
+    };
+  }
+
+  // 🔹 Obtener por barcode con información del producto
+  async findOneByBarcode(code: string): Promise<Response<any>> {
+    const barcode = await this.prisma.barcode.findUnique({
+      where: { barcode: code },
+    });
+
+    if (!barcode) throw new NotFoundException('Código no encontrado');
+
+    let product: any = null;
+
+    if (barcode.isUsed) {
+      product = await this.prisma.product.findFirst({
+        where: { barcode: code },
+        select: {
+          id: true,
+          name: true,
+          barcode: true,
+          description: true,
+          price: true,
+          coste: true,
+          stock: true,
+          unit: true,
+          expiredAt: true,
+          category: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          provider: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      });
+    }
+
+    return {
+      status: 200,
+      message: 'Código obtenido exitosamente',
+      data: {
+        ...barcode,
+        product,
+      },
+    };
+  }
+
+  // 🔹 Filtrar por estado de uso
+  async findByUsageStatus(
+    isUsed: boolean,
+    pagination: PaginationDto
+  ): Promise<Response<any[]>> {
+    const { page = 1, limit = 10 } = pagination;
+
+    const where = { isUsed };
+
+    const totalPage = await this.prisma.barcode.count({ where });
+    const lastPage = Math.ceil(totalPage / limit);
+
+    const barcodes = await this.prisma.barcode.findMany({
+      where,
+      take: limit,
+      skip: (page - 1) * limit,
+      orderBy: { id: 'desc' },
+    });
+
+    // Si está buscando barcodes usados, traer la info del producto
+    let barcodesWithProducts = barcodes;
+
+    if (isUsed) {
+      barcodesWithProducts = await Promise.all(
+        barcodes.map(async (barcode) => {
+          const product = await this.prisma.product.findFirst({
+            where: { barcode: barcode.barcode },
+            select: {
+              id: true,
+              name: true,
+              barcode: true,
+              price: true,
+              stock: true,
+              category: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+              provider: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          });
+
+          return {
+            ...barcode,
+            product,
+          };
+        })
+      );
+    } else {
+      barcodesWithProducts = barcodes.map(barcode => ({
+        ...barcode,
+        product: null,
+      }));
+    }
+
+    return {
+      status: 200,
+      message: `Códigos ${isUsed ? 'usados' : 'disponibles'} obtenidos exitosamente`,
+      pagination: {
+        limit,
+        page,
+        total: totalPage,
+        lastPage,
+      },
+      data: barcodesWithProducts,
     };
   }
 

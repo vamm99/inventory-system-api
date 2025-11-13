@@ -180,6 +180,7 @@ exports.Prisma.BarcodeScalarFieldEnum = {
   id: 'id',
   barcode: 'barcode',
   imageUrl: 'imageUrl',
+  isUsed: 'isUsed',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

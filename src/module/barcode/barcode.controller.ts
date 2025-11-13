@@ -18,7 +18,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 @Roles('ADMIN')
 @Controller('barcode')
 export class BarcodeController {
-  constructor(private readonly barcodeService: BarcodeService) {}
+  constructor(private readonly barcodeService: BarcodeService) { }
 
   @Post()
   create(@Body() dto: CreateBarcodeDto) {
@@ -28,6 +28,20 @@ export class BarcodeController {
   @Get()
   findAll(@Query() paginationDto: PaginationDto) {
     return this.barcodeService.findAll(paginationDto);
+  }
+
+  @Get('filter')
+  async findByUsageStatus(
+    @Query('isUsed') isUsed: string,
+    @Query() pagination: PaginationDto,
+  ) {
+    const isUsedBoolean = isUsed === 'true';
+    return this.barcodeService.findByUsageStatus(isUsedBoolean, pagination);
+  }
+
+  @Get('share')
+  findOneByBarcode(@Query('code') code: string) {
+    return this.barcodeService.findOneByBarcode(code);
   }
 
   @Get(':id')

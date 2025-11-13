@@ -11,32 +11,52 @@ import { filter } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async create(data: CreateProductDto): Promise<Response<Product>> {
     const existProduct = await this.prisma.product.findFirst({
       where: { barcode: data.barcode },
     });
+
     if (existProduct) {
       throw new BadRequestException('Product already exists');
     }
-    const createProduct = await this.prisma.product.create({
-      data: {
-        barcode: data.barcode,
-        name: data.name,
-        description: data.description,
-        categoryId: data.categoryId,
-        coste: data.coste,
-        price: data.price,
-        stock: data.stock,
-        unit: data.unit,
-        expiredAt: new Date(data.expiredAt),
-        providerId: data.providerId,
-      },
-      include: {
-        category: { select: { id: true, name: true } },
-        provider: { select: { id: true, name: true } },
-      },
+
+    // Buscar el registro de barcode
+    const barcodeRecord = await this.prisma.barcode.findUnique({
+      where: { barcode: data.barcode },
+    });
+
+    // Crear el producto y actualizar el barcode en una transacción
+    const createProduct = await this.prisma.$transaction(async (prisma) => {
+      const product = await prisma.product.create({
+        data: {
+          barcode: data.barcode,
+          name: data.name,
+          description: data.description,
+          categoryId: data.categoryId,
+          coste: data.coste,
+          price: data.price,
+          stock: data.stock,
+          unit: data.unit,
+          expiredAt: new Date(data.expiredAt),
+          providerId: data.providerId,
+        },
+        include: {
+          category: { select: { id: true, name: true } },
+          provider: { select: { id: true, name: true } },
+        },
+      });
+
+      // Si existe el registro de barcode, marcar como usado
+      if (barcodeRecord) {
+        await prisma.barcode.update({
+          where: { barcode: data.barcode },
+          data: { isUsed: true },
+        });
+      }
+
+      return product;
     });
 
     return {

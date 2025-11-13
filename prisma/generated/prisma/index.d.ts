@@ -7022,6 +7022,7 @@ export namespace Prisma {
     id: number | null
     barcode: string | null
     imageUrl: string | null
+    isUsed: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7030,6 +7031,7 @@ export namespace Prisma {
     id: number | null
     barcode: string | null
     imageUrl: string | null
+    isUsed: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7038,6 +7040,7 @@ export namespace Prisma {
     id: number
     barcode: number
     imageUrl: number
+    isUsed: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7056,6 +7059,7 @@ export namespace Prisma {
     id?: true
     barcode?: true
     imageUrl?: true
+    isUsed?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7064,6 +7068,7 @@ export namespace Prisma {
     id?: true
     barcode?: true
     imageUrl?: true
+    isUsed?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7072,6 +7077,7 @@ export namespace Prisma {
     id?: true
     barcode?: true
     imageUrl?: true
+    isUsed?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7167,6 +7173,7 @@ export namespace Prisma {
     id: number
     barcode: string
     imageUrl: string
+    isUsed: boolean
     createdAt: Date
     updatedAt: Date | null
     _count: BarcodeCountAggregateOutputType | null
@@ -7194,6 +7201,7 @@ export namespace Prisma {
     id?: boolean
     barcode?: boolean
     imageUrl?: boolean
+    isUsed?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["barcode"]>
@@ -7202,6 +7210,7 @@ export namespace Prisma {
     id?: boolean
     barcode?: boolean
     imageUrl?: boolean
+    isUsed?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["barcode"]>
@@ -7210,6 +7219,7 @@ export namespace Prisma {
     id?: boolean
     barcode?: boolean
     imageUrl?: boolean
+    isUsed?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["barcode"]>
@@ -7218,11 +7228,12 @@ export namespace Prisma {
     id?: boolean
     barcode?: boolean
     imageUrl?: boolean
+    isUsed?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type barcodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["barcode"]>
+  export type barcodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "imageUrl" | "isUsed" | "createdAt" | "updatedAt", ExtArgs["result"]["barcode"]>
 
   export type $barcodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "barcode"
@@ -7231,6 +7242,7 @@ export namespace Prisma {
       id: number
       barcode: string
       imageUrl: string
+      isUsed: boolean
       createdAt: Date
       updatedAt: Date | null
     }, ExtArgs["result"]["barcode"]>
@@ -7659,6 +7671,7 @@ export namespace Prisma {
     readonly id: FieldRef<"barcode", 'Int'>
     readonly barcode: FieldRef<"barcode", 'String'>
     readonly imageUrl: FieldRef<"barcode", 'String'>
+    readonly isUsed: FieldRef<"barcode", 'Boolean'>
     readonly createdAt: FieldRef<"barcode", 'DateTime'>
     readonly updatedAt: FieldRef<"barcode", 'DateTime'>
   }
@@ -8115,6 +8128,7 @@ export namespace Prisma {
     id: 'id',
     barcode: 'barcode',
     imageUrl: 'imageUrl',
+    isUsed: 'isUsed',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8262,6 +8276,13 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -8632,6 +8653,7 @@ export namespace Prisma {
     id?: IntFilter<"barcode"> | number
     barcode?: StringFilter<"barcode"> | string
     imageUrl?: StringFilter<"barcode"> | string
+    isUsed?: BoolFilter<"barcode"> | boolean
     createdAt?: DateTimeFilter<"barcode"> | Date | string
     updatedAt?: DateTimeNullableFilter<"barcode"> | Date | string | null
   }
@@ -8640,6 +8662,7 @@ export namespace Prisma {
     id?: SortOrder
     barcode?: SortOrder
     imageUrl?: SortOrder
+    isUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
   }
@@ -8651,6 +8674,7 @@ export namespace Prisma {
     OR?: barcodeWhereInput[]
     NOT?: barcodeWhereInput | barcodeWhereInput[]
     imageUrl?: StringFilter<"barcode"> | string
+    isUsed?: BoolFilter<"barcode"> | boolean
     createdAt?: DateTimeFilter<"barcode"> | Date | string
     updatedAt?: DateTimeNullableFilter<"barcode"> | Date | string | null
   }, "id" | "id" | "barcode">
@@ -8659,6 +8683,7 @@ export namespace Prisma {
     id?: SortOrder
     barcode?: SortOrder
     imageUrl?: SortOrder
+    isUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
     _count?: barcodeCountOrderByAggregateInput
@@ -8675,6 +8700,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"barcode"> | number
     barcode?: StringWithAggregatesFilter<"barcode"> | string
     imageUrl?: StringWithAggregatesFilter<"barcode"> | string
+    isUsed?: BoolWithAggregatesFilter<"barcode"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"barcode"> | Date | string
     updatedAt?: DateTimeNullableWithAggregatesFilter<"barcode"> | Date | string | null
   }
@@ -9058,6 +9084,7 @@ export namespace Prisma {
   export type barcodeCreateInput = {
     barcode: string
     imageUrl: string
+    isUsed?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -9066,6 +9093,7 @@ export namespace Prisma {
     id?: number
     barcode: string
     imageUrl: string
+    isUsed?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -9073,6 +9101,7 @@ export namespace Prisma {
   export type barcodeUpdateInput = {
     barcode?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9081,6 +9110,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     barcode?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9089,6 +9119,7 @@ export namespace Prisma {
     id?: number
     barcode: string
     imageUrl: string
+    isUsed?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string | null
   }
@@ -9096,6 +9127,7 @@ export namespace Prisma {
   export type barcodeUpdateManyMutationInput = {
     barcode?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9104,6 +9136,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     barcode?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9572,10 +9605,16 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type barcodeCountOrderByAggregateInput = {
     id?: SortOrder
     barcode?: SortOrder
     imageUrl?: SortOrder
+    isUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9588,6 +9627,7 @@ export namespace Prisma {
     id?: SortOrder
     barcode?: SortOrder
     imageUrl?: SortOrder
+    isUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9596,12 +9636,21 @@ export namespace Prisma {
     id?: SortOrder
     barcode?: SortOrder
     imageUrl?: SortOrder
+    isUsed?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type barcodeSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9750,6 +9799,10 @@ export namespace Prisma {
     update?: ProductUpdateWithWhereUniqueWithoutCategoryInput | ProductUpdateWithWhereUniqueWithoutCategoryInput[]
     updateMany?: ProductUpdateManyWithWhereWithoutCategoryInput | ProductUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9953,6 +10006,19 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProductCreateWithoutProviderInput = {

@@ -96,6 +96,7 @@ model barcode {
   id Int @id @unique @default(autoincrement())
   barcode String @unique
   imageUrl String
+  isUsed Boolean @default(false)
 
   createdAt     DateTime        @default(now())
   updatedAt     DateTime?       @updatedAt
