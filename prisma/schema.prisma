@@ -62,6 +62,7 @@ model Product {
   stock Float
   unit Unit
   expiredAt DateTime
+  kardex Kardex[]
 
   category Category @relation(fields: [categoryId], references: [id])
   provider Provider @relation(fields: [providerId], references: [id])
@@ -97,6 +98,19 @@ model barcode {
   barcode String @unique
   imageUrl String
   isUsed Boolean @default(false)
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?       @updatedAt
+}
+
+model Kardex {
+  id Int @id @unique @default(autoincrement())
+  productId Int
+  quantity Float
+  stock Float
+  comment String
+  
+  product Product @relation(fields: [productId], references: [id])
 
   createdAt     DateTime        @default(now())
   updatedAt     DateTime?       @updatedAt

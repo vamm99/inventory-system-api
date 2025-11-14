@@ -7,7 +7,8 @@ import { Response } from '@/utils/response';
 import { UpdateProductDto } from './dtos/update.dto';
 import { ShareDto } from './dtos/sheare.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
-import { filter } from 'rxjs';
+import { ProductKardex } from './dtos/kardex.dto';
+import { Kardex } from '../../../prisma/generated/prisma';
 
 @Injectable()
 export class ProductService {
@@ -112,6 +113,18 @@ export class ProductService {
     };
   }
 
+  async getProductsByBarcode(barcode: string): Promise<Response<Product>> {
+    const product = await this.prisma.product.findUnique({ where: { barcode } });
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+    return {
+      status: 200,
+      message: 'Product found successfully',
+      data: product,
+    };
+  }
+
   async share(shareDto: ShareDto): Promise<Response<Product[]>> {
     const orConditions: any[] = [];
 
@@ -176,6 +189,94 @@ export class ProductService {
       status: 200,
       message: 'Product deleted successfully',
       data: deleteProduct,
+    };
+  }
+
+  async kardex(products: ProductKardex[]) {
+    // Validamos que el producto exista y tenga stock mayor a cero
+    for (const product of products) {
+      const productFound = await this.prisma.product.findUnique({ where: { id: product.id } });
+      if (!productFound) {
+        throw new BadRequestException(`Product ${product.name} not found`);
+      }
+      if (productFound.stock < product.quantity) {
+        throw new BadRequestException(`Product ${product.name} stock is not enough`);
+      }
+
+      // Actualizamos el stock
+      const updateProduct = await this.prisma.product.update({
+        where: { id: product.id },
+        data: { stock: productFound.stock - product.quantity },
+      });
+
+      // Creamos el movimiento en Kardex a cada producto
+      await this.prisma.kardex.create({
+        data: {
+          productId: product.id,
+          quantity: product.quantity,
+          comment: 'Producto descargado',
+          stock: updateProduct.stock,
+        },
+      });
+    }
+    return {
+      status: 200,
+      message: 'Kardex created successfully',
+    };
+  }
+
+  async getAllKardex(paginationDto: PaginationDto): Promise<Response<Kardex[]>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const totalPage = await this.prisma.kardex.count();
+    const lastPage = Math.ceil(totalPage / limit);
+    const kardex = await this.prisma.kardex.findMany({
+      take: limit,
+      skip: (page - 1) * limit,
+      include: {
+        product: { select: { id: true, name: true } },
+      },
+    });
+    if (!kardex) {
+      throw new BadRequestException('Kardex not found');
+    }
+    return {
+      status: 200,
+      message: 'Kardex found successfully',
+      pagination: {
+        limit,
+        page,
+        total: totalPage,
+        lastPage: lastPage,
+      },
+      data: kardex,
+    };
+  }
+
+  async getAllKardexByProduct(id: number, paginationDto: PaginationDto): Promise<Response<Kardex[]>> {
+    const { page = 1, limit = 10 } = paginationDto;
+    const totalPage = await this.prisma.kardex.count({ where: { productId: id } });
+    const lastPage = Math.ceil(totalPage / limit);
+    const kardex = await this.prisma.kardex.findMany({
+      where: { productId: id },
+      take: limit,
+      skip: (page - 1) * limit,
+      include: {
+        product: { select: { id: true, name: true } },
+      },
+    });
+    if (!kardex) {
+      throw new BadRequestException('Kardex not found');
+    }
+    return {
+      status: 200,
+      message: 'Kardex found successfully',
+      pagination: {
+        limit,
+        page,
+        total: totalPage,
+        lastPage: lastPage,
+      },
+      data: kardex,
     };
   }
 }

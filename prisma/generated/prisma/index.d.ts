@@ -43,6 +43,11 @@ export type Dishes = $Result.DefaultSelection<Prisma.$DishesPayload>
  * 
  */
 export type barcode = $Result.DefaultSelection<Prisma.$barcodePayload>
+/**
+ * Model Kardex
+ * 
+ */
+export type Kardex = $Result.DefaultSelection<Prisma.$KardexPayload>
 
 /**
  * Enums
@@ -253,6 +258,16 @@ export class PrismaClient<
     * ```
     */
   get barcode(): Prisma.barcodeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.kardex`: Exposes CRUD operations for the **Kardex** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Kardexes
+    * const kardexes = await prisma.kardex.findMany()
+    * ```
+    */
+  get kardex(): Prisma.KardexDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -699,7 +714,8 @@ export namespace Prisma {
     Product: 'Product',
     Category: 'Category',
     Dishes: 'Dishes',
-    barcode: 'barcode'
+    barcode: 'barcode',
+    Kardex: 'Kardex'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -718,7 +734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "provider" | "product" | "category" | "dishes" | "barcode"
+      modelProps: "user" | "provider" | "product" | "category" | "dishes" | "barcode" | "kardex"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1166,6 +1182,80 @@ export namespace Prisma {
           }
         }
       }
+      Kardex: {
+        payload: Prisma.$KardexPayload<ExtArgs>
+        fields: Prisma.KardexFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KardexFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KardexFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>
+          }
+          findFirst: {
+            args: Prisma.KardexFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KardexFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>
+          }
+          findMany: {
+            args: Prisma.KardexFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>[]
+          }
+          create: {
+            args: Prisma.KardexCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>
+          }
+          createMany: {
+            args: Prisma.KardexCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KardexCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>[]
+          }
+          delete: {
+            args: Prisma.KardexDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>
+          }
+          update: {
+            args: Prisma.KardexUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>
+          }
+          deleteMany: {
+            args: Prisma.KardexDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KardexUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.KardexUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>[]
+          }
+          upsert: {
+            args: Prisma.KardexUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KardexPayload>
+          }
+          aggregate: {
+            args: Prisma.KardexAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKardex>
+          }
+          groupBy: {
+            args: Prisma.KardexGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KardexGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KardexCountArgs<ExtArgs>
+            result: $Utils.Optional<KardexCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1268,6 +1358,7 @@ export namespace Prisma {
     category?: CategoryOmit
     dishes?: DishesOmit
     barcode?: barcodeOmit
+    kardex?: KardexOmit
   }
 
   /* Types for Logging */
@@ -1371,6 +1462,37 @@ export namespace Prisma {
    */
   export type ProviderCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProductWhereInput
+  }
+
+
+  /**
+   * Count Type ProductCountOutputType
+   */
+
+  export type ProductCountOutputType = {
+    kardex: number
+  }
+
+  export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kardex?: boolean | ProductCountOutputTypeCountKardexArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountOutputType
+     */
+    select?: ProductCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountKardexArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KardexWhereInput
   }
 
 
@@ -3876,8 +3998,10 @@ export namespace Prisma {
     expiredAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    kardex?: boolean | Product$kardexArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     provider?: boolean | ProviderDefaultArgs<ExtArgs>
+    _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3934,8 +4058,10 @@ export namespace Prisma {
 
   export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "barcode" | "categoryId" | "providerId" | "name" | "description" | "coste" | "price" | "stock" | "unit" | "expiredAt" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    kardex?: boolean | Product$kardexArgs<ExtArgs>
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     provider?: boolean | ProviderDefaultArgs<ExtArgs>
+    _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
@@ -3949,6 +4075,7 @@ export namespace Prisma {
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {
+      kardex: Prisma.$KardexPayload<ExtArgs>[]
       category: Prisma.$CategoryPayload<ExtArgs>
       provider: Prisma.$ProviderPayload<ExtArgs>
     }
@@ -4360,6 +4487,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    kardex<T extends Product$kardexArgs<ExtArgs> = {}>(args?: Subset<T, Product$kardexArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     provider<T extends ProviderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProviderDefaultArgs<ExtArgs>>): Prisma__ProviderClient<$Result.GetResult<Prisma.$ProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -4797,6 +4925,30 @@ export namespace Prisma {
      * Limit how many Products to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Product.kardex
+   */
+  export type Product$kardexArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    where?: KardexWhereInput
+    orderBy?: KardexOrderByWithRelationInput | KardexOrderByWithRelationInput[]
+    cursor?: KardexWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: KardexScalarFieldEnum | KardexScalarFieldEnum[]
   }
 
   /**
@@ -8041,6 +8193,1136 @@ export namespace Prisma {
 
 
   /**
+   * Model Kardex
+   */
+
+  export type AggregateKardex = {
+    _count: KardexCountAggregateOutputType | null
+    _avg: KardexAvgAggregateOutputType | null
+    _sum: KardexSumAggregateOutputType | null
+    _min: KardexMinAggregateOutputType | null
+    _max: KardexMaxAggregateOutputType | null
+  }
+
+  export type KardexAvgAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    quantity: number | null
+    stock: number | null
+  }
+
+  export type KardexSumAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    quantity: number | null
+    stock: number | null
+  }
+
+  export type KardexMinAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    quantity: number | null
+    stock: number | null
+    comment: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type KardexMaxAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    quantity: number | null
+    stock: number | null
+    comment: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type KardexCountAggregateOutputType = {
+    id: number
+    productId: number
+    quantity: number
+    stock: number
+    comment: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type KardexAvgAggregateInputType = {
+    id?: true
+    productId?: true
+    quantity?: true
+    stock?: true
+  }
+
+  export type KardexSumAggregateInputType = {
+    id?: true
+    productId?: true
+    quantity?: true
+    stock?: true
+  }
+
+  export type KardexMinAggregateInputType = {
+    id?: true
+    productId?: true
+    quantity?: true
+    stock?: true
+    comment?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type KardexMaxAggregateInputType = {
+    id?: true
+    productId?: true
+    quantity?: true
+    stock?: true
+    comment?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type KardexCountAggregateInputType = {
+    id?: true
+    productId?: true
+    quantity?: true
+    stock?: true
+    comment?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type KardexAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Kardex to aggregate.
+     */
+    where?: KardexWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Kardexes to fetch.
+     */
+    orderBy?: KardexOrderByWithRelationInput | KardexOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KardexWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Kardexes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Kardexes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Kardexes
+    **/
+    _count?: true | KardexCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: KardexAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: KardexSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KardexMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KardexMaxAggregateInputType
+  }
+
+  export type GetKardexAggregateType<T extends KardexAggregateArgs> = {
+        [P in keyof T & keyof AggregateKardex]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKardex[P]>
+      : GetScalarType<T[P], AggregateKardex[P]>
+  }
+
+
+
+
+  export type KardexGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KardexWhereInput
+    orderBy?: KardexOrderByWithAggregationInput | KardexOrderByWithAggregationInput[]
+    by: KardexScalarFieldEnum[] | KardexScalarFieldEnum
+    having?: KardexScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KardexCountAggregateInputType | true
+    _avg?: KardexAvgAggregateInputType
+    _sum?: KardexSumAggregateInputType
+    _min?: KardexMinAggregateInputType
+    _max?: KardexMaxAggregateInputType
+  }
+
+  export type KardexGroupByOutputType = {
+    id: number
+    productId: number
+    quantity: number
+    stock: number
+    comment: string
+    createdAt: Date
+    updatedAt: Date | null
+    _count: KardexCountAggregateOutputType | null
+    _avg: KardexAvgAggregateOutputType | null
+    _sum: KardexSumAggregateOutputType | null
+    _min: KardexMinAggregateOutputType | null
+    _max: KardexMaxAggregateOutputType | null
+  }
+
+  type GetKardexGroupByPayload<T extends KardexGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KardexGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KardexGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KardexGroupByOutputType[P]>
+            : GetScalarType<T[P], KardexGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KardexSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    quantity?: boolean
+    stock?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kardex"]>
+
+  export type KardexSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    quantity?: boolean
+    stock?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kardex"]>
+
+  export type KardexSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    quantity?: boolean
+    stock?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kardex"]>
+
+  export type KardexSelectScalar = {
+    id?: boolean
+    productId?: boolean
+    quantity?: boolean
+    stock?: boolean
+    comment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type KardexOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "quantity" | "stock" | "comment" | "createdAt" | "updatedAt", ExtArgs["result"]["kardex"]>
+  export type KardexInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type KardexIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type KardexIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+  export type $KardexPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Kardex"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      productId: number
+      quantity: number
+      stock: number
+      comment: string
+      createdAt: Date
+      updatedAt: Date | null
+    }, ExtArgs["result"]["kardex"]>
+    composites: {}
+  }
+
+  type KardexGetPayload<S extends boolean | null | undefined | KardexDefaultArgs> = $Result.GetResult<Prisma.$KardexPayload, S>
+
+  type KardexCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<KardexFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: KardexCountAggregateInputType | true
+    }
+
+  export interface KardexDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Kardex'], meta: { name: 'Kardex' } }
+    /**
+     * Find zero or one Kardex that matches the filter.
+     * @param {KardexFindUniqueArgs} args - Arguments to find a Kardex
+     * @example
+     * // Get one Kardex
+     * const kardex = await prisma.kardex.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KardexFindUniqueArgs>(args: SelectSubset<T, KardexFindUniqueArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Kardex that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {KardexFindUniqueOrThrowArgs} args - Arguments to find a Kardex
+     * @example
+     * // Get one Kardex
+     * const kardex = await prisma.kardex.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KardexFindUniqueOrThrowArgs>(args: SelectSubset<T, KardexFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Kardex that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexFindFirstArgs} args - Arguments to find a Kardex
+     * @example
+     * // Get one Kardex
+     * const kardex = await prisma.kardex.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KardexFindFirstArgs>(args?: SelectSubset<T, KardexFindFirstArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Kardex that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexFindFirstOrThrowArgs} args - Arguments to find a Kardex
+     * @example
+     * // Get one Kardex
+     * const kardex = await prisma.kardex.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KardexFindFirstOrThrowArgs>(args?: SelectSubset<T, KardexFindFirstOrThrowArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Kardexes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Kardexes
+     * const kardexes = await prisma.kardex.findMany()
+     * 
+     * // Get first 10 Kardexes
+     * const kardexes = await prisma.kardex.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const kardexWithIdOnly = await prisma.kardex.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KardexFindManyArgs>(args?: SelectSubset<T, KardexFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Kardex.
+     * @param {KardexCreateArgs} args - Arguments to create a Kardex.
+     * @example
+     * // Create one Kardex
+     * const Kardex = await prisma.kardex.create({
+     *   data: {
+     *     // ... data to create a Kardex
+     *   }
+     * })
+     * 
+     */
+    create<T extends KardexCreateArgs>(args: SelectSubset<T, KardexCreateArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Kardexes.
+     * @param {KardexCreateManyArgs} args - Arguments to create many Kardexes.
+     * @example
+     * // Create many Kardexes
+     * const kardex = await prisma.kardex.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KardexCreateManyArgs>(args?: SelectSubset<T, KardexCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Kardexes and returns the data saved in the database.
+     * @param {KardexCreateManyAndReturnArgs} args - Arguments to create many Kardexes.
+     * @example
+     * // Create many Kardexes
+     * const kardex = await prisma.kardex.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Kardexes and only return the `id`
+     * const kardexWithIdOnly = await prisma.kardex.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KardexCreateManyAndReturnArgs>(args?: SelectSubset<T, KardexCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Kardex.
+     * @param {KardexDeleteArgs} args - Arguments to delete one Kardex.
+     * @example
+     * // Delete one Kardex
+     * const Kardex = await prisma.kardex.delete({
+     *   where: {
+     *     // ... filter to delete one Kardex
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KardexDeleteArgs>(args: SelectSubset<T, KardexDeleteArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Kardex.
+     * @param {KardexUpdateArgs} args - Arguments to update one Kardex.
+     * @example
+     * // Update one Kardex
+     * const kardex = await prisma.kardex.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KardexUpdateArgs>(args: SelectSubset<T, KardexUpdateArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Kardexes.
+     * @param {KardexDeleteManyArgs} args - Arguments to filter Kardexes to delete.
+     * @example
+     * // Delete a few Kardexes
+     * const { count } = await prisma.kardex.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KardexDeleteManyArgs>(args?: SelectSubset<T, KardexDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Kardexes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Kardexes
+     * const kardex = await prisma.kardex.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KardexUpdateManyArgs>(args: SelectSubset<T, KardexUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Kardexes and returns the data updated in the database.
+     * @param {KardexUpdateManyAndReturnArgs} args - Arguments to update many Kardexes.
+     * @example
+     * // Update many Kardexes
+     * const kardex = await prisma.kardex.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Kardexes and only return the `id`
+     * const kardexWithIdOnly = await prisma.kardex.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends KardexUpdateManyAndReturnArgs>(args: SelectSubset<T, KardexUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Kardex.
+     * @param {KardexUpsertArgs} args - Arguments to update or create a Kardex.
+     * @example
+     * // Update or create a Kardex
+     * const kardex = await prisma.kardex.upsert({
+     *   create: {
+     *     // ... data to create a Kardex
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Kardex we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KardexUpsertArgs>(args: SelectSubset<T, KardexUpsertArgs<ExtArgs>>): Prisma__KardexClient<$Result.GetResult<Prisma.$KardexPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Kardexes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexCountArgs} args - Arguments to filter Kardexes to count.
+     * @example
+     * // Count the number of Kardexes
+     * const count = await prisma.kardex.count({
+     *   where: {
+     *     // ... the filter for the Kardexes we want to count
+     *   }
+     * })
+    **/
+    count<T extends KardexCountArgs>(
+      args?: Subset<T, KardexCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KardexCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Kardex.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KardexAggregateArgs>(args: Subset<T, KardexAggregateArgs>): Prisma.PrismaPromise<GetKardexAggregateType<T>>
+
+    /**
+     * Group by Kardex.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KardexGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KardexGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KardexGroupByArgs['orderBy'] }
+        : { orderBy?: KardexGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KardexGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKardexGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Kardex model
+   */
+  readonly fields: KardexFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Kardex.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KardexClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Kardex model
+   */
+  interface KardexFieldRefs {
+    readonly id: FieldRef<"Kardex", 'Int'>
+    readonly productId: FieldRef<"Kardex", 'Int'>
+    readonly quantity: FieldRef<"Kardex", 'Float'>
+    readonly stock: FieldRef<"Kardex", 'Float'>
+    readonly comment: FieldRef<"Kardex", 'String'>
+    readonly createdAt: FieldRef<"Kardex", 'DateTime'>
+    readonly updatedAt: FieldRef<"Kardex", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Kardex findUnique
+   */
+  export type KardexFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * Filter, which Kardex to fetch.
+     */
+    where: KardexWhereUniqueInput
+  }
+
+  /**
+   * Kardex findUniqueOrThrow
+   */
+  export type KardexFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * Filter, which Kardex to fetch.
+     */
+    where: KardexWhereUniqueInput
+  }
+
+  /**
+   * Kardex findFirst
+   */
+  export type KardexFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * Filter, which Kardex to fetch.
+     */
+    where?: KardexWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Kardexes to fetch.
+     */
+    orderBy?: KardexOrderByWithRelationInput | KardexOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Kardexes.
+     */
+    cursor?: KardexWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Kardexes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Kardexes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Kardexes.
+     */
+    distinct?: KardexScalarFieldEnum | KardexScalarFieldEnum[]
+  }
+
+  /**
+   * Kardex findFirstOrThrow
+   */
+  export type KardexFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * Filter, which Kardex to fetch.
+     */
+    where?: KardexWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Kardexes to fetch.
+     */
+    orderBy?: KardexOrderByWithRelationInput | KardexOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Kardexes.
+     */
+    cursor?: KardexWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Kardexes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Kardexes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Kardexes.
+     */
+    distinct?: KardexScalarFieldEnum | KardexScalarFieldEnum[]
+  }
+
+  /**
+   * Kardex findMany
+   */
+  export type KardexFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * Filter, which Kardexes to fetch.
+     */
+    where?: KardexWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Kardexes to fetch.
+     */
+    orderBy?: KardexOrderByWithRelationInput | KardexOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Kardexes.
+     */
+    cursor?: KardexWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Kardexes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Kardexes.
+     */
+    skip?: number
+    distinct?: KardexScalarFieldEnum | KardexScalarFieldEnum[]
+  }
+
+  /**
+   * Kardex create
+   */
+  export type KardexCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Kardex.
+     */
+    data: XOR<KardexCreateInput, KardexUncheckedCreateInput>
+  }
+
+  /**
+   * Kardex createMany
+   */
+  export type KardexCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Kardexes.
+     */
+    data: KardexCreateManyInput | KardexCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Kardex createManyAndReturn
+   */
+  export type KardexCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * The data used to create many Kardexes.
+     */
+    data: KardexCreateManyInput | KardexCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Kardex update
+   */
+  export type KardexUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Kardex.
+     */
+    data: XOR<KardexUpdateInput, KardexUncheckedUpdateInput>
+    /**
+     * Choose, which Kardex to update.
+     */
+    where: KardexWhereUniqueInput
+  }
+
+  /**
+   * Kardex updateMany
+   */
+  export type KardexUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Kardexes.
+     */
+    data: XOR<KardexUpdateManyMutationInput, KardexUncheckedUpdateManyInput>
+    /**
+     * Filter which Kardexes to update
+     */
+    where?: KardexWhereInput
+    /**
+     * Limit how many Kardexes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Kardex updateManyAndReturn
+   */
+  export type KardexUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * The data used to update Kardexes.
+     */
+    data: XOR<KardexUpdateManyMutationInput, KardexUncheckedUpdateManyInput>
+    /**
+     * Filter which Kardexes to update
+     */
+    where?: KardexWhereInput
+    /**
+     * Limit how many Kardexes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Kardex upsert
+   */
+  export type KardexUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Kardex to update in case it exists.
+     */
+    where: KardexWhereUniqueInput
+    /**
+     * In case the Kardex found by the `where` argument doesn't exist, create a new Kardex with this data.
+     */
+    create: XOR<KardexCreateInput, KardexUncheckedCreateInput>
+    /**
+     * In case the Kardex was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KardexUpdateInput, KardexUncheckedUpdateInput>
+  }
+
+  /**
+   * Kardex delete
+   */
+  export type KardexDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+    /**
+     * Filter which Kardex to delete.
+     */
+    where: KardexWhereUniqueInput
+  }
+
+  /**
+   * Kardex deleteMany
+   */
+  export type KardexDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Kardexes to delete
+     */
+    where?: KardexWhereInput
+    /**
+     * Limit how many Kardexes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Kardex without action
+   */
+  export type KardexDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Kardex
+     */
+    select?: KardexSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Kardex
+     */
+    omit?: KardexOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KardexInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8134,6 +9416,19 @@ export namespace Prisma {
   };
 
   export type BarcodeScalarFieldEnum = (typeof BarcodeScalarFieldEnum)[keyof typeof BarcodeScalarFieldEnum]
+
+
+  export const KardexScalarFieldEnum: {
+    id: 'id',
+    productId: 'productId',
+    quantity: 'quantity',
+    stock: 'stock',
+    comment: 'comment',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type KardexScalarFieldEnum = (typeof KardexScalarFieldEnum)[keyof typeof KardexScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8437,6 +9732,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFilter<"Product"> | Date | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    kardex?: KardexListRelationFilter
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     provider?: XOR<ProviderScalarRelationFilter, ProviderWhereInput>
   }
@@ -8455,6 +9751,7 @@ export namespace Prisma {
     expiredAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    kardex?: KardexOrderByRelationAggregateInput
     category?: CategoryOrderByWithRelationInput
     provider?: ProviderOrderByWithRelationInput
   }
@@ -8476,6 +9773,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFilter<"Product"> | Date | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
+    kardex?: KardexListRelationFilter
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     provider?: XOR<ProviderScalarRelationFilter, ProviderWhereInput>
   }, "id" | "id" | "barcode">
@@ -8705,6 +10003,73 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableWithAggregatesFilter<"barcode"> | Date | string | null
   }
 
+  export type KardexWhereInput = {
+    AND?: KardexWhereInput | KardexWhereInput[]
+    OR?: KardexWhereInput[]
+    NOT?: KardexWhereInput | KardexWhereInput[]
+    id?: IntFilter<"Kardex"> | number
+    productId?: IntFilter<"Kardex"> | number
+    quantity?: FloatFilter<"Kardex"> | number
+    stock?: FloatFilter<"Kardex"> | number
+    comment?: StringFilter<"Kardex"> | string
+    createdAt?: DateTimeFilter<"Kardex"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Kardex"> | Date | string | null
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }
+
+  export type KardexOrderByWithRelationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
+    product?: ProductOrderByWithRelationInput
+  }
+
+  export type KardexWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: KardexWhereInput | KardexWhereInput[]
+    OR?: KardexWhereInput[]
+    NOT?: KardexWhereInput | KardexWhereInput[]
+    productId?: IntFilter<"Kardex"> | number
+    quantity?: FloatFilter<"Kardex"> | number
+    stock?: FloatFilter<"Kardex"> | number
+    comment?: StringFilter<"Kardex"> | string
+    createdAt?: DateTimeFilter<"Kardex"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Kardex"> | Date | string | null
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id" | "id">
+
+  export type KardexOrderByWithAggregationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
+    _count?: KardexCountOrderByAggregateInput
+    _avg?: KardexAvgOrderByAggregateInput
+    _max?: KardexMaxOrderByAggregateInput
+    _min?: KardexMinOrderByAggregateInput
+    _sum?: KardexSumOrderByAggregateInput
+  }
+
+  export type KardexScalarWhereWithAggregatesInput = {
+    AND?: KardexScalarWhereWithAggregatesInput | KardexScalarWhereWithAggregatesInput[]
+    OR?: KardexScalarWhereWithAggregatesInput[]
+    NOT?: KardexScalarWhereWithAggregatesInput | KardexScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Kardex"> | number
+    productId?: IntWithAggregatesFilter<"Kardex"> | number
+    quantity?: FloatWithAggregatesFilter<"Kardex"> | number
+    stock?: FloatWithAggregatesFilter<"Kardex"> | number
+    comment?: StringWithAggregatesFilter<"Kardex"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Kardex"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"Kardex"> | Date | string | null
+  }
+
   export type UserCreateInput = {
     name: string
     email: string
@@ -8854,6 +10219,7 @@ export namespace Prisma {
     expiredAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    kardex?: KardexCreateNestedManyWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
     provider: ProviderCreateNestedOneWithoutProductsInput
   }
@@ -8872,6 +10238,7 @@ export namespace Prisma {
     expiredAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    kardex?: KardexUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -8885,6 +10252,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kardex?: KardexUpdateManyWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
     provider?: ProviderUpdateOneRequiredWithoutProductsNestedInput
   }
@@ -8903,6 +10271,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kardex?: KardexUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -9137,6 +10506,72 @@ export namespace Prisma {
     barcode?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type KardexCreateInput = {
+    quantity: number
+    stock: number
+    comment: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    product: ProductCreateNestedOneWithoutKardexInput
+  }
+
+  export type KardexUncheckedCreateInput = {
+    id?: number
+    productId: number
+    quantity: number
+    stock: number
+    comment: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type KardexUpdateInput = {
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    product?: ProductUpdateOneRequiredWithoutKardexNestedInput
+  }
+
+  export type KardexUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type KardexCreateManyInput = {
+    id?: number
+    productId: number
+    quantity: number
+    stock: number
+    comment: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type KardexUpdateManyMutationInput = {
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type KardexUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -9377,6 +10812,12 @@ export namespace Prisma {
     not?: NestedEnumUnitFilter<$PrismaModel> | $Enums.Unit
   }
 
+  export type KardexListRelationFilter = {
+    every?: KardexWhereInput
+    some?: KardexWhereInput
+    none?: KardexWhereInput
+  }
+
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
@@ -9385,6 +10826,10 @@ export namespace Prisma {
   export type ProviderScalarRelationFilter = {
     is?: ProviderWhereInput
     isNot?: ProviderWhereInput
+  }
+
+  export type KardexOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ProductCountOrderByAggregateInput = {
@@ -9653,6 +11098,55 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type ProductScalarRelationFilter = {
+    is?: ProductWhereInput
+    isNot?: ProductWhereInput
+  }
+
+  export type KardexCountOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KardexAvgOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+  }
+
+  export type KardexMaxOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KardexMinOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+    comment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type KardexSumOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    stock?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -9719,6 +11213,13 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type KardexCreateNestedManyWithoutProductInput = {
+    create?: XOR<KardexCreateWithoutProductInput, KardexUncheckedCreateWithoutProductInput> | KardexCreateWithoutProductInput[] | KardexUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: KardexCreateOrConnectWithoutProductInput | KardexCreateOrConnectWithoutProductInput[]
+    createMany?: KardexCreateManyProductInputEnvelope
+    connect?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+  }
+
   export type CategoryCreateNestedOneWithoutProductsInput = {
     create?: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutProductsInput
@@ -9731,6 +11232,13 @@ export namespace Prisma {
     connect?: ProviderWhereUniqueInput
   }
 
+  export type KardexUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<KardexCreateWithoutProductInput, KardexUncheckedCreateWithoutProductInput> | KardexCreateWithoutProductInput[] | KardexUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: KardexCreateOrConnectWithoutProductInput | KardexCreateOrConnectWithoutProductInput[]
+    createMany?: KardexCreateManyProductInputEnvelope
+    connect?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -9741,6 +11249,20 @@ export namespace Prisma {
 
   export type EnumUnitFieldUpdateOperationsInput = {
     set?: $Enums.Unit
+  }
+
+  export type KardexUpdateManyWithoutProductNestedInput = {
+    create?: XOR<KardexCreateWithoutProductInput, KardexUncheckedCreateWithoutProductInput> | KardexCreateWithoutProductInput[] | KardexUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: KardexCreateOrConnectWithoutProductInput | KardexCreateOrConnectWithoutProductInput[]
+    upsert?: KardexUpsertWithWhereUniqueWithoutProductInput | KardexUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: KardexCreateManyProductInputEnvelope
+    set?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    disconnect?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    delete?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    connect?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    update?: KardexUpdateWithWhereUniqueWithoutProductInput | KardexUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: KardexUpdateManyWithWhereWithoutProductInput | KardexUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: KardexScalarWhereInput | KardexScalarWhereInput[]
   }
 
   export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
@@ -9757,6 +11279,20 @@ export namespace Prisma {
     upsert?: ProviderUpsertWithoutProductsInput
     connect?: ProviderWhereUniqueInput
     update?: XOR<XOR<ProviderUpdateToOneWithWhereWithoutProductsInput, ProviderUpdateWithoutProductsInput>, ProviderUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type KardexUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<KardexCreateWithoutProductInput, KardexUncheckedCreateWithoutProductInput> | KardexCreateWithoutProductInput[] | KardexUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: KardexCreateOrConnectWithoutProductInput | KardexCreateOrConnectWithoutProductInput[]
+    upsert?: KardexUpsertWithWhereUniqueWithoutProductInput | KardexUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: KardexCreateManyProductInputEnvelope
+    set?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    disconnect?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    delete?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    connect?: KardexWhereUniqueInput | KardexWhereUniqueInput[]
+    update?: KardexUpdateWithWhereUniqueWithoutProductInput | KardexUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: KardexUpdateManyWithWhereWithoutProductInput | KardexUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: KardexScalarWhereInput | KardexScalarWhereInput[]
   }
 
   export type ProductCreateNestedManyWithoutCategoryInput = {
@@ -9803,6 +11339,20 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type ProductCreateNestedOneWithoutKardexInput = {
+    create?: XOR<ProductCreateWithoutKardexInput, ProductUncheckedCreateWithoutKardexInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutKardexInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutKardexNestedInput = {
+    create?: XOR<ProductCreateWithoutKardexInput, ProductUncheckedCreateWithoutKardexInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutKardexInput
+    upsert?: ProductUpsertWithoutKardexInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutKardexInput, ProductUpdateWithoutKardexInput>, ProductUncheckedUpdateWithoutKardexInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -10032,6 +11582,7 @@ export namespace Prisma {
     expiredAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    kardex?: KardexCreateNestedManyWithoutProductInput
     category: CategoryCreateNestedOneWithoutProductsInput
   }
 
@@ -10048,6 +11599,7 @@ export namespace Prisma {
     expiredAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    kardex?: KardexUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutProviderInput = {
@@ -10095,6 +11647,33 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
   }
 
+  export type KardexCreateWithoutProductInput = {
+    quantity: number
+    stock: number
+    comment: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type KardexUncheckedCreateWithoutProductInput = {
+    id?: number
+    quantity: number
+    stock: number
+    comment: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type KardexCreateOrConnectWithoutProductInput = {
+    where: KardexWhereUniqueInput
+    create: XOR<KardexCreateWithoutProductInput, KardexUncheckedCreateWithoutProductInput>
+  }
+
+  export type KardexCreateManyProductInputEnvelope = {
+    data: KardexCreateManyProductInput | KardexCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CategoryCreateWithoutProductsInput = {
     name: string
     createdAt?: Date | string
@@ -10135,6 +11714,35 @@ export namespace Prisma {
   export type ProviderCreateOrConnectWithoutProductsInput = {
     where: ProviderWhereUniqueInput
     create: XOR<ProviderCreateWithoutProductsInput, ProviderUncheckedCreateWithoutProductsInput>
+  }
+
+  export type KardexUpsertWithWhereUniqueWithoutProductInput = {
+    where: KardexWhereUniqueInput
+    update: XOR<KardexUpdateWithoutProductInput, KardexUncheckedUpdateWithoutProductInput>
+    create: XOR<KardexCreateWithoutProductInput, KardexUncheckedCreateWithoutProductInput>
+  }
+
+  export type KardexUpdateWithWhereUniqueWithoutProductInput = {
+    where: KardexWhereUniqueInput
+    data: XOR<KardexUpdateWithoutProductInput, KardexUncheckedUpdateWithoutProductInput>
+  }
+
+  export type KardexUpdateManyWithWhereWithoutProductInput = {
+    where: KardexScalarWhereInput
+    data: XOR<KardexUpdateManyMutationInput, KardexUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type KardexScalarWhereInput = {
+    AND?: KardexScalarWhereInput | KardexScalarWhereInput[]
+    OR?: KardexScalarWhereInput[]
+    NOT?: KardexScalarWhereInput | KardexScalarWhereInput[]
+    id?: IntFilter<"Kardex"> | number
+    productId?: IntFilter<"Kardex"> | number
+    quantity?: FloatFilter<"Kardex"> | number
+    stock?: FloatFilter<"Kardex"> | number
+    comment?: StringFilter<"Kardex"> | string
+    createdAt?: DateTimeFilter<"Kardex"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Kardex"> | Date | string | null
   }
 
   export type CategoryUpsertWithoutProductsInput = {
@@ -10202,6 +11810,7 @@ export namespace Prisma {
     expiredAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    kardex?: KardexCreateNestedManyWithoutProductInput
     provider: ProviderCreateNestedOneWithoutProductsInput
   }
 
@@ -10218,6 +11827,7 @@ export namespace Prisma {
     expiredAt: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string | null
+    kardex?: KardexUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -10246,6 +11856,84 @@ export namespace Prisma {
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCategoryInput>
   }
 
+  export type ProductCreateWithoutKardexInput = {
+    barcode: string
+    name: string
+    description: string
+    coste: number
+    price: number
+    stock: number
+    unit: $Enums.Unit
+    expiredAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+    category: CategoryCreateNestedOneWithoutProductsInput
+    provider: ProviderCreateNestedOneWithoutProductsInput
+  }
+
+  export type ProductUncheckedCreateWithoutKardexInput = {
+    id?: number
+    barcode: string
+    categoryId: number
+    providerId: number
+    name: string
+    description: string
+    coste: number
+    price: number
+    stock: number
+    unit: $Enums.Unit
+    expiredAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type ProductCreateOrConnectWithoutKardexInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutKardexInput, ProductUncheckedCreateWithoutKardexInput>
+  }
+
+  export type ProductUpsertWithoutKardexInput = {
+    update: XOR<ProductUpdateWithoutKardexInput, ProductUncheckedUpdateWithoutKardexInput>
+    create: XOR<ProductCreateWithoutKardexInput, ProductUncheckedCreateWithoutKardexInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutKardexInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutKardexInput, ProductUncheckedUpdateWithoutKardexInput>
+  }
+
+  export type ProductUpdateWithoutKardexInput = {
+    barcode?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    coste?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    provider?: ProviderUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutKardexInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    barcode?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
+    providerId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    coste?: FloatFieldUpdateOperationsInput | number
+    price?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
+    expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type ProductCreateManyProviderInput = {
     id?: number
     barcode: string
@@ -10272,6 +11960,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kardex?: KardexUpdateManyWithoutProductNestedInput
     category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
   }
 
@@ -10288,6 +11977,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kardex?: KardexUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutProviderInput = {
@@ -10301,6 +11991,41 @@ export namespace Prisma {
     stock?: FloatFieldUpdateOperationsInput | number
     unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type KardexCreateManyProductInput = {
+    id?: number
+    quantity: number
+    stock: number
+    comment: string
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
+  }
+
+  export type KardexUpdateWithoutProductInput = {
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type KardexUncheckedUpdateWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type KardexUncheckedUpdateManyWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    quantity?: FloatFieldUpdateOperationsInput | number
+    stock?: FloatFieldUpdateOperationsInput | number
+    comment?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -10331,6 +12056,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kardex?: KardexUpdateManyWithoutProductNestedInput
     provider?: ProviderUpdateOneRequiredWithoutProductsNestedInput
   }
 
@@ -10347,6 +12073,7 @@ export namespace Prisma {
     expiredAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kardex?: KardexUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCategoryInput = {
