@@ -81,5 +81,22 @@ export class AuthService {
         }
     }
 
+    async updatePassword(email: string, password: string): Promise<Response<User>> {
+        const user = await this.prisma.user.findUnique({ where: { email } })
+        if (!user) {
+            throw new NotFoundException('User not found')
+        }
+        const hashedPassword = await this.bcryptService.hashPassword(password)
+        const updatedUser = await this.prisma.user.update({
+            where: { email },
+            data: { password: hashedPassword }
+        })
+        return {
+            status: 200,
+            message: 'User password updated',
+            data: updatedUser
+        }
+    }
+
 
 }

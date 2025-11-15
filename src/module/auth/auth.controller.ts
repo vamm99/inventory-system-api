@@ -4,6 +4,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Public } from './decorators/public.decorator';
 import { User } from './decorators/user.decorator';
+import { UpdatePasswordDto } from './dto/updatePassword.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,5 +25,10 @@ export class AuthController {
   @Get('profile')
   async profile(@User() user) {
     return user;
+  }
+
+  @Post('update-password')
+  async updatePassword(@User() user, @Body() updatePasswordDto: UpdatePasswordDto) {
+    return this.authService.updatePassword(user.data.email, updatePasswordDto.password);
   }
 }

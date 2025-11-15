@@ -225,7 +225,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\generated\\prisma",
+      "value": "C:\\Users\\VICTOR MEJIA\\Desktop\\PAS\\inventory-api\\prisma\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -239,7 +239,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\John Smith\\Desktop\\PAS\\api\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\VICTOR MEJIA\\Desktop\\PAS\\inventory-api\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
