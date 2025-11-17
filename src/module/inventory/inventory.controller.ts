@@ -1,7 +1,6 @@
 import { Controller, Get, Query, Res } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { PaginationDto } from '@/utils/pagination.dto';
-import express from 'express';
 import { Roles } from '../auth/decorators/roles.decorator';
 
 @Roles('ADMIN')
@@ -15,7 +14,7 @@ export class InventoryController {
   }
 
   @Get('excel')
-  async generateExcelReportForProducts(@Res() res: express.Response) {
+  async generateExcelReportForProducts(@Res() res) {
     const buffer = await this.inventoryService.generateExcelReportForProducts();
     res.setHeader(
       'Content-Disposition',
@@ -25,7 +24,6 @@ export class InventoryController {
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     );
-
     res.send(buffer);
   }
 
@@ -35,7 +33,7 @@ export class InventoryController {
   }
 
   @Get('dishe/excel')
-  async generateExcelReportForDishe(@Res() res: express.Response) {
+  async generateExcelReportForDishe(@Res() res) {
     const buffer = await this.inventoryService.generateExcelReportForDishe();
     res.setHeader(
       'Content-Disposition',
@@ -45,7 +43,6 @@ export class InventoryController {
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     );
-
     res.send(buffer);
   }
 }

@@ -16,7 +16,6 @@ import { CreateBarcodeDto } from './dto/create.dto';
 import { UpdateBarcodeDto } from './dto/update.dto';
 import { PaginationDto } from '@/utils/pagination.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
-import express from 'express';
 
 @Roles('ADMIN')
 @Controller('barcode')
@@ -37,7 +36,7 @@ export class BarcodeController {
   @Get('pdf')
   async generatePDF(
     @Query('isUsed') isUsed: string | undefined,
-    @Res() res: express.Response,
+    @Res() res,
   ) {
     try {
       // Convertir query param a boolean si existe
