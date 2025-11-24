@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Res } from '@nestjs/common';
-import { InventoryService } from './inventory.service';
+import { InventoryService, KardexFilterDto } from './inventory.service';
 import { PaginationDto } from '@/utils/pagination.dto';
 import { Roles } from '../auth/decorators/roles.decorator';
 
@@ -39,6 +39,29 @@ export class InventoryController {
       'Content-Disposition',
       'attachment; filename="reporte_inventario_platos.xlsx"',
     );
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.send(buffer);
+  }
+
+  @Get('kardex/excel')
+  async generateExcelReportForKardex(
+    @Query() filters: KardexFilterDto,
+    @Res() res,
+  ) {
+    const buffer =
+      await this.inventoryService.generateExcelReportForProductSalesOfTheDay(
+        filters,
+      );
+
+    const fileName =
+      filters.startDate || filters.endDate
+        ? `kardex_${filters.startDate || 'inicio'}_${filters.endDate || 'fin'}.xlsx`
+        : `kardex_${new Date().toISOString().split('T')[0]}.xlsx`;
+
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
     res.setHeader(
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
