@@ -49,6 +49,16 @@ export class ProductService {
         },
       });
 
+      // Creamos el movimiento en Kardex
+      await prisma.kardex.create({
+        data: {
+          productId: product.id,
+          quantity: data.stock,
+          comment: 'Stock inicial',
+          stock: data.stock,
+        },
+      });
+
       // Si existe el registro de barcode, marcar como usado
       if (barcodeRecord) {
         await prisma.barcode.update({
@@ -213,7 +223,7 @@ export class ProductService {
       await this.prisma.kardex.create({
         data: {
           productId: product.id,
-          quantity: product.quantity,
+          quantity: -product.quantity,
           comment: 'Producto descargado',
           stock: updateProduct.stock,
         },
