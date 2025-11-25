@@ -5,6 +5,8 @@ import { PaginationDto } from '@/utils/pagination.dto';
 import { BadRequestException } from '@nestjs/common';
 import ExcelJS from 'exceljs';
 import { IsDateString, IsOptional } from 'class-validator';
+import { startOfDay, endOfDay } from 'date-fns';
+import { toZonedTime, fromZonedTime } from 'date-fns-tz';
 
 export class KardexFilterDto {
   @IsOptional()
@@ -18,6 +20,7 @@ export class KardexFilterDto {
 
 @Injectable()
 export class InventoryService {
+  private readonly TIMEZONE = 'America/Bogota';
   constructor(private readonly prisma: PrismaService) {}
 
   async inventoryOfProducts(pagination: PaginationDto): Promise<Response<any>> {
@@ -219,14 +222,30 @@ export class InventoryService {
   }
 
   async generateExcelReportForProductSalesOfTheDay(filters?: KardexFilterDto) {
-    // Si no se proporcionan fechas, usar el día actual
-    const startDate = filters?.startDate
-      ? new Date(filters.startDate)
-      : new Date(new Date().setHours(0, 0, 0, 0));
+    let startDate: Date;
+    let endDate: Date;
 
-    const endDate = filters?.endDate
-      ? new Date(filters.endDate)
-      : new Date(new Date().setHours(23, 59, 59, 999));
+    if (filters?.startDate) {
+      // Convertir la fecha proporcionada a inicio del día en Colombia
+      const localStart = startOfDay(new Date(filters.startDate));
+      startDate = toZonedTime(localStart, 'America/Bogota');
+    } else {
+      // Inicio del día actual en Colombia
+      const now = toZonedTime(new Date(), 'America/Bogota');
+      const localStart = startOfDay(now);
+      startDate = toZonedTime(localStart, 'America/Bogota');
+    }
+
+    if (filters?.endDate) {
+      // Convertir la fecha proporcionada a final del día en Colombia
+      const localEnd = endOfDay(new Date(filters.endDate));
+      endDate = toZonedTime(localEnd, 'America/Bogota');
+    } else {
+      // Final del día actual en Colombia
+      const now = toZonedTime(new Date(), 'America/Bogota');
+      const localEnd = endOfDay(now);
+      endDate = toZonedTime(localEnd, 'America/Bogota');
+    }
 
     // Obtener movimientos del Kardex filtrados por fecha
     const kardexMovements = await this.prisma.kardex.findMany({
@@ -261,7 +280,7 @@ export class InventoryService {
 
     // Crear workbook y hoja
     const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Kardex Movements');
+    const worksheet = workbook.addWorksheet('Sales Movements');
 
     // Definir columnas
     worksheet.columns = [
@@ -286,8 +305,11 @@ export class InventoryService {
       const movementType = item.quantity > 0 ? 'Entry' : 'Exit';
       const absQuantity = Math.abs(item.quantity);
 
+      // Convertir la fecha UTC a hora de Colombia
+      const localDate = toZonedTime(item.createdAt, 'America/Bogota');
+
       worksheet.addRow({
-        date: item.createdAt.toLocaleString('es-CO', {
+        date: localDate.toLocaleString('es-CO', {
           year: 'numeric',
           month: '2-digit',
           day: '2-digit',
