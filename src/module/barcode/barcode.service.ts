@@ -21,8 +21,17 @@ export class BarcodeService {
   private async getBrowser(): Promise<puppeteer.Browser> {
     if (!this.browser) {
       this.browser = await puppeteer.launch({
+        executablePath: '/usr/bin/chromium-browser',
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+          '--no-first-run',
+          '--no-zygote',
+          '--single-process',
+        ],
       });
     }
     return this.browser;
@@ -59,7 +68,9 @@ export class BarcodeService {
     });
 
     if (barcodes.length === 0) {
-      throw new NotFoundException('No hay códigos de barras para generar el PDF');
+      throw new NotFoundException(
+        'No hay códigos de barras para generar el PDF',
+      );
     }
 
     // Obtener productos asociados si están usados
@@ -82,7 +93,7 @@ export class BarcodeService {
         }
 
         return { ...barcode, product };
-      })
+      }),
     );
 
     // Generar HTML
@@ -114,14 +125,17 @@ export class BarcodeService {
 
   // 🔹 Generar HTML para el PDF
   private generateBarcodeHTML(barcodes: any[], isUsed?: boolean): string {
-    const title = 
-      isUsed === true ? 'Códigos de Barras - USADOS' :
-      isUsed === false ? 'Códigos de Barras - DISPONIBLES' :
-      'Códigos de Barras - TODOS';
+    const title =
+      isUsed === true
+        ? 'Códigos de Barras - USADOS'
+        : isUsed === false
+          ? 'Códigos de Barras - DISPONIBLES'
+          : 'Códigos de Barras - TODOS';
 
-    const rows = barcodes.map((item, index) => {
-      const productInfo = item.product
-        ? `
+    const rows = barcodes
+      .map((item, index) => {
+        const productInfo = item.product
+          ? `
           <div class="product-info">
             <strong>Producto:</strong> ${item.product.name}<br>
             <strong>Categoría:</strong> ${item.product.category?.name || 'N/A'}<br>
@@ -130,9 +144,9 @@ export class BarcodeService {
             <strong>Stock:</strong> ${item.product.stock || 0}
           </div>
         `
-        : '<div class="product-info">Sin producto asociado</div>';
+          : '<div class="product-info">Sin producto asociado</div>';
 
-      return `
+        return `
         <div class="barcode-item">
           <div class="barcode-header">
             <span class="barcode-number">#${index + 1}</span>
@@ -150,7 +164,8 @@ export class BarcodeService {
           </div>
         </div>
       `;
-    }).join('');
+      })
+      .join('');
 
     return `
       <!DOCTYPE html>
@@ -321,11 +336,11 @@ export class BarcodeService {
       <body>
         <div class="header">
           <h1>${title}</h1>
-          <p>Generado el ${new Date().toLocaleDateString('es-ES', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+          <p>Generado el ${new Date().toLocaleDateString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
           })}</p>
         </div>
 
@@ -335,11 +350,11 @@ export class BarcodeService {
             <div class="label">Total Códigos</div>
           </div>
           <div class="stat-card">
-            <div class="number">${barcodes.filter(b => b.isUsed).length}</div>
+            <div class="number">${barcodes.filter((b) => b.isUsed).length}</div>
             <div class="label">Usados</div>
           </div>
           <div class="stat-card">
-            <div class="number">${barcodes.filter(b => !b.isUsed).length}</div>
+            <div class="number">${barcodes.filter((b) => !b.isUsed).length}</div>
             <div class="label">Disponibles</div>
           </div>
         </div>
@@ -461,7 +476,7 @@ export class BarcodeService {
           ...barcode,
           product,
         };
-      })
+      }),
     );
 
     return {
@@ -527,7 +542,7 @@ export class BarcodeService {
 
   async findByUsageStatus(
     isUsed: boolean,
-    pagination: PaginationDto
+    pagination: PaginationDto,
   ): Promise<Response<any[]>> {
     const { page = 1, limit = 10 } = pagination;
 
@@ -575,10 +590,10 @@ export class BarcodeService {
             ...barcode,
             product,
           };
-        })
+        }),
       );
     } else {
-      barcodesWithProducts = barcodes.map(barcode => ({
+      barcodesWithProducts = barcodes.map((barcode) => ({
         ...barcode,
         product: null,
       }));
